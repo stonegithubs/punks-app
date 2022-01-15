@@ -1,30 +1,10 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
-import PFPTest from './artifacts/contracts/pfpTest.sol/PFPTest.json';
 
-const CONTRACT_ADDRESS = {
-  1: '', // mainnet
-  3: '0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9', // ropsten
-  4: '0xF5f4A9FB11C56E2663d644bD64C690C58c4c9656', // rinkeby
-  5: '', // goerli
-  42: '', // kavan
-  1337: '0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512', // localhost
-};
+import { getContract } from './service/contract';
+
 const TOKEN_PRICE = 0.0001; // in eth
-
-async function getContract(signed) {
-  if (!window.ethereum) {
-    throw new Error('window.ethereum is not defined');
-  }
-  if (signed) await window.ethereum.request({ method: 'eth_requestAccounts' });
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const { chainId } = await provider.getNetwork();
-  const address = CONTRACT_ADDRESS[chainId];
-  if (!address) throw new Error(`Contract not deployed on network ${chainId}.`);
-  const signer = signed ? provider.getSigner() : provider;
-  return new ethers.Contract(address, PFPTest.abi, signer);
-}
 
 const GENERIC_ERROR = {
   code: -1,
