@@ -1,0 +1,50 @@
+{
+  "name": "pfp-test",
+  "version": "1.0.0",
+  "homepage": "https://dustinboersma.com/pfp-test/",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "compile": "npx hardhat compile",
+    "deploy:web": "npm run build && cp -R ./build ./dist && git subtree push --prefix dist origin gh-pages",
+    "deploy:localhost": "npx hardhat run scripts/deploy.js --network localhost",
+    "deploy:ropsten": "npx hardhat run scripts/deploy.js --network ropsten",
+    "deploy:rinkeby": "npx hardhat run scripts/deploy.js --network rinkeby",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@openzeppelin/contracts": "^4.4.1",
+    "eslint": "^8.6.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "hardhat": "^2.8.2",
+    "ipfs": "^0.61.0"
+  },
+  "dependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.0.4",
+    "dotenv": "^10.0.0",
+    "ethers": "^5.5.3",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "^5.0.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
