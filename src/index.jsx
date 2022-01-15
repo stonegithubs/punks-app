@@ -2,11 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-// import reportWebVitals from './reportWebVitals';
+
+import { Web3Provider } from './context/Web3';
+import { AccountProvider } from './context/Account';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Web3Provider>
+      <AccountProvider>
+        <App />
+      </AccountProvider>
+    </Web3Provider>
   </React.StrictMode>,
   document.getElementById('root'),
 );
