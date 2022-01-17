@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 
-import { Web3Provider } from './context/Web3';
-import { AccountProvider } from './context/Account';
+import { Web3Provider } from './context/Web3Context';
+import { AccountProvider } from './context/AccountContext';
 
 ReactDOM.render(
   <React.StrictMode>

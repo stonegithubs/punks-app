@@ -1,10 +1,10 @@
 import React, {
-  createContext, useReducer, useMemo, useEffect, useContext,
+  createContext, useReducer, useMemo, useEffect,
 } from 'react';
 import PropTypes from 'prop-types';
 
 import { apiGetAccountAssets } from '../service/ethApi';
-import Web3Context from './Web3';
+import { useWeb3Context } from './Web3Context';
 
 const INITIAL_STATE = {
   address: null,
@@ -16,6 +16,15 @@ const ACTIONS = {
   SET_ASSETS: 'ACCOUNT_ASSETS_ASSETS',
   RESET: 'ACCOUNT_RESET',
 };
+export function setAccount(address, chainId) {
+  return [ACTIONS.SET, { address, chainId }];
+}
+export function setAccountAssets(assets) {
+  return [ACTIONS.SET_ASSETS, { assets }];
+}
+export function resetAccount() {
+  return [ACTIONS.RESET];
+}
 function REDUCER(state, [type, payload]) {
   switch (type) {
     case ACTIONS.SET:
@@ -47,22 +56,23 @@ const AccountContext = createContext({
 export function AccountProvider({
   children,
 }) {
-  const { state: web3State } = useContext(Web3Context);
-  const [state, dispatch] = useReducer(REDUCER, INITIAL_STATE);
+  const { web3State } = useWeb3Context();
+  const [accountState, accountDispatch] = useReducer(REDUCER, INITIAL_STATE);
 
   // wrap value in memo so we only re-render when necessary
   const providerValue = useMemo(() => ({
-    state,
-  }), [state]);
+    accountState,
+    accountDispatch,
+  }), [accountState]);
 
   // fetch account assets
   useEffect(() => {
     if (!web3State.address || !web3State.chainId) return;
     async function updateAssets() {
-      dispatch([ACTIONS.SET, { address: web3State.address, chainId: web3State.chainId }]);
+      accountDispatch(setAccount(web3State.address, web3State.chainId));
       const data = await apiGetAccountAssets(web3State.address, web3State.chainId);
       if (data) {
-        dispatch([ACTIONS.SET_ASSETS, { assets: data[0] }]);
+        accountDispatch(setAccountAssets(data[0]));
       }
     }
     updateAssets();

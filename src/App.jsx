@@ -1,8 +1,9 @@
 import './App.css';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Web3 from 'web3';
-import Web3Context from './context/Web3';
-import supportedChains from './data/supportedChains';
+import { getContract } from './service/web3';
+import { useWeb3Context, web3Connect } from './context/Web3Context';
+import AppHeader from './components/AppHeader';
 
 const TOKEN_PRICE = 0.0001; // in eth
 
@@ -12,10 +13,7 @@ const GENERIC_ERROR = {
 };
 
 function App() {
-  const {
-    state: web3State, connect, getContract, disconnect,
-  } = useContext(Web3Context);
-  const selectedChain = supportedChains.find((chain) => chain.chain_id === web3State.chainId);
+  const { web3State } = useWeb3Context();
   const [numTokens, setNumTokens] = useState(1);
   const [saleStatus, setSaleStatus] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -34,7 +32,7 @@ function App() {
         setLoading(false);
       }
     })();
-  }, [web3State, getContract]);
+  }, [web3State]);
 
   // request access to the user's MetaMask account
 
@@ -114,24 +112,7 @@ function App() {
   }
   return (
     <div className="App">
-      <header className="App-header">
-        <div style={{ textAlign: 'left' }}>
-          <p style={{ fontSize: '13px' }}>Connected to</p>
-          <p style={{ fontSize: '13px', fontWeight: 'bold' }}>{selectedChain.name}</p>
-        </div>
-        <div style={{ textAlign: 'right' }}>
-          {!web3State.connected ? (
-            <button disabled={loading} type="button" onClick={() => connect()}>Connect</button>
-          ) : (
-            <>
-              <p style={{ fontSize: '16px' }}>
-                {`${web3State.address.slice(0, 10)}...${web3State.address.slice(-10)}`}
-              </p>
-              <button disabled={loading} style={{ fontSize: '12px' }} type="button" onClick={() => disconnect()}>Disconnect</button>
-            </>
-          )}
-        </div>
-      </header>
+      <AppHeader />
       <div>
         {error ? (
           <p style={{ fontSize: '12px', color: 'red' }}>
@@ -157,7 +138,7 @@ function App() {
                 PFP Test
               </h1>
               <h4>Connect to mint a token</h4>
-              <button disabled={loading} type="button" onClick={() => connect()}>Connect</button>
+              <button disabled={loading} type="button" onClick={() => web3Connect()}>Connect</button>
             </div>
           ) : (
             <div>
