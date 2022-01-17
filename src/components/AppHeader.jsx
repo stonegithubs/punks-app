@@ -2,8 +2,9 @@ import './AppHeader.css';
 import React from 'react';
 import { useWeb3Context, web3Connect, web3Disconnect } from '../context/Web3Context';
 import supportedChains from '../data/supportedChains';
+import AppLogo from './AppLogo';
 
-function App() {
+function AppHeader() {
   const {
     web3State,
     web3Dispatch,
@@ -15,6 +16,7 @@ function App() {
         <p style={{ fontSize: '13px' }}>Connected to</p>
         <p style={{ fontSize: '13px', fontWeight: 'bold' }}>{selectedChain.name}</p>
       </div>
+      <AppLogo />
       <div style={{ textAlign: 'right' }}>
         {!web3State.connected ? (
           <button type="button" onClick={() => () => web3Dispatch(web3Connect())}>Connect</button>
@@ -31,4 +33,4 @@ function App() {
   );
 }
 
-export default App;
+export default AppHeader;

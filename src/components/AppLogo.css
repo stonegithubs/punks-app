@@ -1,10 +1,48 @@
-/* .App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.AppLogo-abbr {
+  font-family: "Press Start 2P", cursive;
+  font-size: 60px;
+  color: #ddd;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.AppLogo-title {
+  font-family: "Comforter Brush", cursive;
+  font-size: 30px;
+  margin-top: -57px;
+}
+
+/* animations */
+.AppLogo {
+  backface-visibility: hidden;
+}
+.AppLogo-abbr {
+  animation-name: AppLogo-abbr--enter;
+  animation-duration: 0.5s;
+  animation-iteration-count: 1;
+}
+.AppLogo-title {
+  opacity: 0;
+  animation-name: AppLogo-title--enter;
+  animation-duration: 0.5s;
+  animation-delay: 0.5s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes AppLogo-abbr--enter {
+  from {
+    color: #000;
   }
-} */
+  to {
+    color: #ddd;
+  }
+}
+@keyframes AppLogo-title--enter {
+  from {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
