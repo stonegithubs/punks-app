@@ -1,8 +1,7 @@
 import './PageMint.css';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import classnames from 'classnames';
 import Web3 from 'web3';
-import { getContract, getContractAddress } from '../service/web3';
 import supportedChains from '../data/supportedChains';
 import { useWeb3Context } from '../context/Web3Context';
 import ButtonConnect from './ButtonConnect';
@@ -24,34 +23,29 @@ function PageMint() {
   const [error, setError] = useState();
   const [success, setSuccess] = useState();
   const selectedChain = supportedChains.find((chain) => chain.chain_id === web3State.chainId);
-  const contractAddress = getContractAddress(web3State.chainId);
   // Math.round cause of javascript dumbness -- round to 18th decimal cause that's what eth allows
   const ethPrice = Math.round(TOKEN_PRICE * numTokens * 1000000000000000000) / 1000000000000000000;
   useEffect(() => {
-    if (!web3State.connected) return;
+    if (!web3State.buttpunkContract || !web3State.connected) return;
     (async () => {
       try {
-        const contract = await getContract();
-        const data = await contract.methods.saleStatus().call();
+        const data = await web3State.buttpunkContract.methods.saleStatus().call();
         setSaleStatus(data);
-        setLoading(false);
       } catch (err) {
-        // setError((err && err.error) || err || GENERIC_ERROR);
-        setLoading(false);
+        console.error(err);
       }
     })();
-  }, [web3State.connected]);
+  }, [web3State]);
 
   // request access to the user's MetaMask account
 
-  async function mintToken() {
+  const mintToken = useCallback(async () => {
     if (!numTokens) return;
     try {
       setError(null);
       setSuccess(null);
       setLoading(true);
-      const contract = await getContract();
-      await contract.methods.mintToken(numTokens).send({
+      await web3State.buttpunkContract.methods.mintToken(numTokens).send({
         from: web3State.address,
         value: Web3.utils.toWei(`${ethPrice}`, 'ether'),
       });
@@ -61,12 +55,12 @@ function PageMint() {
       setError((err && err.error) || err || GENERIC_ERROR);
       setLoading(false);
     }
-  }
+  }, [numTokens, web3State, ethPrice]);
 
   return (
     <div className="PageMint">
       <h1 className="PageMint-headline">
-        {!saleStatus && web3State.connected ? 'Minting is closed ' : 'Mint Butts ' }
+        {!saleStatus && web3State.connected ? 'Minting is closed ' : 'Mint PunkButts ' }
       </h1>
       <div className="PageMint-section">
         <h2 className="PageMint-sectionHeadline">on: </h2>
@@ -74,8 +68,8 @@ function PageMint() {
       </div>
       <div className="PageMint-section">
         <h2 className="PageMint-sectionHeadline">with contract: </h2>
-        {contractAddress ? (
-          <AnchorAddress chainId={web3State.chainId} address={contractAddress} />
+        {web3State.buttpunkContractAddress ? (
+          <AnchorAddress chainId={web3State.chainId} address={web3State.buttpunkContractAddress} />
         ) : (
           <span>[smart contract has not been deployed on this chain]</span>
         )}

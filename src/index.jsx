@@ -6,14 +6,11 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 import { Web3Provider } from './context/Web3Context';
-import { AccountProvider } from './context/AccountContext';
 
 ReactDOM.render(
   <React.StrictMode>
     <Web3Provider>
-      <AccountProvider>
-        <App />
-      </AccountProvider>
+      <App />
     </Web3Provider>
   </React.StrictMode>,
   document.getElementById('root'),

@@ -1,11 +1,10 @@
 import './PageHome.css';
 import React from 'react';
 import { useWeb3Context } from '../context/Web3Context';
-import { getContractAddress } from '../service/web3';
+import AnchorAddress from './AnchorAddress';
 
 function PageHome() {
   const { web3State } = useWeb3Context();
-  const contractAddress = getContractAddress(web3State.chainId);
   return (
     <div className="PageHome">
       <div className="PageHome-section">
@@ -17,11 +16,11 @@ function PageHome() {
           two punks together and then assigning it a unique combination of nine traits.
         </p>
         <p className="PageHome-blurb">
-          NFT Integrety. IPFS/Pinata provenance record.
+          Blurb about NFT Integrety. IPFS/Pinata provenance record.
           No fishy business.
           Verified smart contract address:
           {' '}
-          <a href={`https://etherscan.io/address/${contractAddress}`} target="_blank" rel="noreferrer">{contractAddress}</a>
+          <AnchorAddress chainId={web3State.chainId} address={web3State.buttpunkContractAddress} />
         </p>
       </div>
     </div>

@@ -1,7 +1,6 @@
 import './PageInfo.css';
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import classnames from 'classnames';
-import { getContract, getContractAddress } from '../service/web3';
 import { useWeb3Context } from '../context/Web3Context';
 import supportedChains from '../data/supportedChains';
 import ButtonConnect from './ButtonConnect';
@@ -24,41 +23,42 @@ function PageInfo() {
   const [success, setSuccess] = useState();
   const [contractBalance, setContractBalance] = useState(0);
   const selectedChain = supportedChains.find((chain) => chain.chain_id === web3State.chainId);
-  const contractAddress = useMemo(() => getContractAddress(web3State.chainId), [web3State.chainId]);
   const isOwner = web3State.connected && web3State.address === ownerAddress;
 
   useEffect(() => {
-    if (!web3State.connected) {
+    if (!web3State.buttpunkContract) {
       setSaleStatus(false);
       setOwnerAddress(null);
       return;
     }
     (async () => {
       try {
-        const contract = await getContract();
-        const newSaleStatus = await contract.methods.saleStatus().call();
-        const newOwnerAddress = await contract.methods.owner().call();
+        const newSaleStatus = await web3State.buttpunkContract.methods.saleStatus().call();
+        const newOwnerAddress = await web3State.buttpunkContract.methods.owner().call();
         setSaleStatus(newSaleStatus);
         setOwnerAddress(newOwnerAddress);
       } catch (err) {
-        // setError((err && err.error) || err || GENERIC_ERROR);
+        console.error(err);
       }
     })();
-  }, [web3State.connected]);
+  }, [web3State]);
 
   useEffect(() => {
     // get contract assets
-    if (!web3State.chainId || !contractAddress) return;
+    if (!web3State.chainId || !web3State.buttpunkContractAddress) return;
     (async () => {
       try {
-        const contractAssets = await apiGetAccountAssets(contractAddress, web3State.chainId);
+        const contractAssets = await apiGetAccountAssets(
+          web3State.buttpunkContractAddress,
+          web3State.chainId,
+        );
         const newBalance = contractAssets && contractAssets.length && contractAssets[0].balance;
         setContractBalance(newBalance || 0);
       } catch (err) {
         setContractBalance(0);
       }
     })();
-  }, [web3State.chainId, contractAddress]);
+  }, [web3State.chainId, web3State.buttpunkContractAddress]);
 
   // request access to the user's MetaMask account
 
@@ -67,8 +67,7 @@ function PageInfo() {
       setError(null);
       setSuccess(null);
       setLoadingStatus(true);
-      const contract = await getContract();
-      await contract.methods.startSale(
+      await web3State.buttpunkContract.methods.startSale(
         Math.floor((Date.now() + 86400000 * 9) / 1000),
       ).send({
         from: web3State.address,
@@ -87,8 +86,7 @@ function PageInfo() {
       setError(null);
       setSuccess(null);
       setLoadingStatus(true);
-      const contract = await getContract();
-      await contract.methods.pauseSale().send({
+      await web3State.buttpunkContract.methods.pauseSale().send({
         from: web3State.address,
       });
       setSaleStatus(false);
@@ -105,8 +103,7 @@ function PageInfo() {
       setError(null);
       setSuccess(null);
       setLoadingWithdraw(true);
-      const contract = await getContract();
-      await contract.methods.withdraw().send({
+      await web3State.buttpunkContract.methods.withdraw().send({
         from: web3State.address,
       });
       setSuccess('Withdraw successful!');
@@ -128,8 +125,8 @@ function PageInfo() {
       </div>
       <div className="PageMint-section">
         <h2 className="PageMint-sectionHeadline">contract: </h2>
-        {contractAddress ? (
-          <AnchorAddress chainId={web3State.chainId} address={contractAddress} />
+        {web3State.buttpunkContractAddress ? (
+          <AnchorAddress chainId={web3State.chainId} address={web3State.buttpunkContractAddress} />
         ) : (
           <span>[smart contract has not been deployed on this chain]</span>
         )}
@@ -181,7 +178,7 @@ function PageInfo() {
             <h2 className="PageInfo-sectionHeadline">status: </h2>
             <p>
               {(() => {
-                if (!contractAddress) {
+                if (!web3State.buttpunkContractAddress) {
                   return 'n/a';
                 } if (!saleStatus) {
                   return 'paused';

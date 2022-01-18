@@ -3,7 +3,13 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 
-import { connect, disconnect } from '../service/web3';
+import ButtPunkSmartContract from '../artifacts/contracts/pfpTest.sol/PFPTest.json';
+
+import {
+  BUTTPUNK_CONTRACT_MAP,
+  connect,
+  disconnect,
+} from '../service/web3';
 
 // STATE
 const INITIAL_STATE = {
@@ -13,7 +19,8 @@ const INITIAL_STATE = {
   address: null,
   chainId: 1,
   networkId: 1,
-  contractAddress: '',
+  buttpunkContractAddress: '',
+  buttpunkContract: null,
 };
 
 // ACTIONS
@@ -25,22 +32,53 @@ export const ACTIONS = {
   EVENT_NETWORK_CHANGE: 'WEB3_EVENT_NETWORK_CHANGE',
 };
 export async function web3Connect() {
-  const res = await connect();
-  return [ACTIONS.CONNECTED, res];
+  const { web3, provider } = await connect();
+  const accounts = await web3.eth.getAccounts();
+  const address = accounts && accounts[0];
+  const networkId = await web3.eth.net.getId();
+  const chainId = await web3.eth.chainId();
+  const buttpunkContractAddress = BUTTPUNK_CONTRACT_MAP[chainId];
+  const buttpunkContract = new web3.eth.Contract(
+    ButtPunkSmartContract.abi,
+    buttpunkContractAddress,
+  );
+  const data = {
+    web3,
+    provider,
+    address,
+    chainId,
+    networkId,
+    buttpunkContractAddress,
+    buttpunkContract,
+  };
+  return [ACTIONS.CONNECTED, data];
 }
-export async function web3Disconnect() {
-  await disconnect();
+export async function web3Disconnect(web3) {
+  await disconnect(web3);
   return [ACTIONS.DISCONNECTED];
 }
 export function web3HandlerClose() {
   return [ACTIONS.DISCONNECTED];
 }
-export function web3HandlerAccountsChange(accounts) {
-  return [ACTIONS.EVENT_ACCOUNTS_CHANGE, { address: accounts[0] }];
+export async function web3HandlerAccountsChange(web3) {
+  const accounts = await web3.eth.getAccounts();
+  const address = accounts && accounts[0];
+  return [ACTIONS.EVENT_ACCOUNTS_CHANGE, { address }];
 }
-export async function web3HandlerChainChange(web3, chainId) {
+export async function web3HandlerChainChange(web3) {
+  const chainId = await web3.eth.chainId();
   const networkId = await web3.eth.net.getId();
-  return [ACTIONS.EVENT_NETWORK_CHANGE, { chainId, networkId }];
+  const buttpunkContractAddress = BUTTPUNK_CONTRACT_MAP[chainId];
+  const buttpunkContract = new web3.eth.Contract(
+    ButtPunkSmartContract.abi,
+    buttpunkContractAddress,
+  );
+  return [ACTIONS.EVENT_NETWORK_CHANGE, {
+    chainId,
+    networkId,
+    buttpunkContractAddress,
+    buttpunkContract,
+  }];
 }
 
 // REDUCER
@@ -55,7 +93,8 @@ function REDUCER(state, [type, payload]) {
         address: payload.address,
         chainId: payload.chainId,
         networkId: payload.networkId,
-        contractAddress: payload.contractAddress,
+        buttpunkContractAddress: payload.buttpunkContractAddress,
+        buttpunkContract: payload.buttpunkContract,
       };
     case ACTIONS.DISCONNECTED:
       return {
@@ -73,12 +112,8 @@ function REDUCER(state, [type, payload]) {
         ...state,
         chainId: payload.chainId,
         networkId: payload.networkId,
-      };
-    case ACTIONS.EVENT_NETWORK_CHANGE:
-      return {
-        ...state,
-        chainId: payload.chainId,
-        networkId: payload.networkId,
+        buttpunkContractAddress: payload.buttpunkContractAddress,
+        buttpunkContract: payload.buttpunkContract,
       };
     default:
       return { ...state };
@@ -86,8 +121,8 @@ function REDUCER(state, [type, payload]) {
 }
 
 const Web3Context = createContext({
-  state: INITIAL_STATE,
-  connect: () => {},
+  web3State: INITIAL_STATE,
+  web3Dispatch: () => {},
 });
 
 export function Web3Provider({
@@ -107,8 +142,8 @@ export function Web3Provider({
       return null;
     }
     web3State.provider.on('disconnect', () => web3Dispatch(web3HandlerClose()));
-    web3State.provider.on('accountsChanged', (accounts) => web3Dispatch(web3HandlerAccountsChange(accounts)));
-    web3State.provider.on('chainChanged', (chainId) => web3Dispatch(web3HandlerChainChange(web3State.web3, chainId)));
+    web3State.provider.on('accountsChanged', async () => web3Dispatch(await web3HandlerAccountsChange(web3State.web3)));
+    web3State.provider.on('chainChanged', async () => web3Dispatch(await web3HandlerChainChange(web3State.web3)));
 
     // unbinds
     return () => {

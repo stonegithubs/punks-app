@@ -1,6 +1,7 @@
 .AppLogo {
   position: relative;
   font-size: 66px;
+  margin-left: 0.15em;
 }
 .AppLogo-abbr {
   display: block;

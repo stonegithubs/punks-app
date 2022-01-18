@@ -12,7 +12,7 @@ function AnchorWalletAddress({ className }) {
   async function disconnect() {
     try {
       setLoadingConnection(true);
-      web3Dispatch(await web3Disconnect());
+      web3Dispatch(await web3Disconnect(web3State.web3));
     } catch (err) {
       console.error((err && err.error) || err);
       setLoadingConnection(false);

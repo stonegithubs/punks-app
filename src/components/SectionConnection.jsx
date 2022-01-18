@@ -24,7 +24,7 @@ function SectionConnection({ className }) {
       <span className="SectionConnection-address">
         {`${web3State.address && web3State.address.slice(0, 10)}...${web3State.address && web3State.address.slice(-10)}`}
       </span>
-      <button className="ButtonText" type="button" onClick={async () => web3Dispatch(await web3Disconnect())}>
+      <button className="ButtonText" type="button" onClick={async () => web3Dispatch(await web3Disconnect(web3State.web3))}>
         (disconnect wallet)
       </button>
     </p>
