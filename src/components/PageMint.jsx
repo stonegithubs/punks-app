@@ -1,10 +1,11 @@
-import './PageHome.css';
+import './PageMint.css';
 import React, { useEffect, useState } from 'react';
 import Web3 from 'web3';
-import { getContract } from '../service/web3';
-import { useWeb3Context } from '../context/Web3Context';
+import { getContract, getContractAddress } from '../service/web3';
 import supportedChains from '../data/supportedChains';
-import SectionConnect from './SectionConnect';
+import { useWeb3Context, web3Disconnect } from '../context/Web3Context';
+import { prettyAddress } from '../util/web3Address';
+import ButtonConnect from './ButtonConnect';
 
 const TOKEN_PRICE = 0.0001; // in eth
 
@@ -14,13 +15,16 @@ const GENERIC_ERROR = {
 };
 
 function PageMint() {
-  const { web3State } = useWeb3Context();
+  const { web3State, web3Dispatch } = useWeb3Context();
   const [numTokens, setNumTokens] = useState(1);
   const [saleStatus, setSaleStatus] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
   const [success, setSuccess] = useState();
   const selectedChain = supportedChains.find((chain) => chain.chain_id === web3State.chainId);
+  const contractAddress = getContractAddress(web3State.chainId);
+  // Math.round cause of javascript dumbness -- round to 18th decimal cause that's what eth allows
+  const ethPrice = Math.round(TOKEN_PRICE * numTokens * 1000000000000000000) / 1000000000000000000;
   useEffect(() => {
     if (!web3State.connected) return;
     (async () => {
@@ -38,44 +42,6 @@ function PageMint() {
 
   // request access to the user's MetaMask account
 
-  async function startSale() {
-    try {
-      setError(null);
-      setSuccess(null);
-      setLoading(true);
-      const contract = await getContract();
-      await contract.methods.startSale(
-        Math.floor((Date.now() + 86400000 * 9) / 1000),
-      ).send({
-        from: web3State.address,
-      });
-      setSaleStatus(true);
-      setSuccess('Sale started!');
-      setLoading(false);
-    } catch (err) {
-      setError((err && err.error) || err || GENERIC_ERROR);
-      setLoading(false);
-    }
-  }
-
-  async function pauseSale() {
-    try {
-      setError(null);
-      setSuccess(null);
-      setLoading(true);
-      const contract = await getContract();
-      await contract.methods.pauseSale().send({
-        from: web3State.address,
-      });
-      setSaleStatus(false);
-      setSuccess('Sale paused!');
-      setLoading(false);
-    } catch (err) {
-      setError((err && err.error) || err || GENERIC_ERROR);
-      setLoading(false);
-    }
-  }
-
   async function mintToken() {
     if (!numTokens) return;
     try {
@@ -85,7 +51,7 @@ function PageMint() {
       const contract = await getContract();
       await contract.methods.mintToken(numTokens).send({
         from: web3State.address,
-        value: Web3.utils.toWei(`${TOKEN_PRICE * numTokens}`, 'ether'),
+        value: Web3.utils.toWei(`${ethPrice}`, 'ether'),
       });
       setSuccess('Token(s) minted successfully!');
       setLoading(false);
@@ -95,26 +61,59 @@ function PageMint() {
     }
   }
 
-  async function withdraw() {
-    if (!numTokens) return;
-    try {
-      setError(null);
-      setSuccess(null);
-      setLoading(true);
-      const contract = await getContract();
-      await contract.methods.withdraw().send({
-        from: web3State.address,
-      });
-      setSuccess('Withdraw successful!');
-      setLoading(false);
-    } catch (err) {
-      setError((err && err.error) || err || GENERIC_ERROR);
-      setLoading(false);
-    }
-  }
   return (
-    <div className="PageHome">
-      <div>
+    <div className="PageMint">
+      <h1 className="PageMint-headline">
+        {!saleStatus && web3State.connected ? 'Minting is closed ' : 'Mint Butts ' }
+      </h1>
+      <div className="PageMint-section">
+        <h2 className="PageMint-sectionHeadline">on: </h2>
+        <p>{selectedChain.name}</p>
+      </div>
+      <div className="PageMint-section">
+        <h2 className="PageMint-sectionHeadline">with contract: </h2>
+        {contractAddress ? (
+          <a href={`https://etherscan.io/address/${contractAddress}`} target="_blank" rel="noreferrer">{prettyAddress(contractAddress)}</a>
+        ) : (
+          <span>[smart contract has not been deployed on this chain]</span>
+        )}
+      </div>
+      <div className="PageMint-section">
+        <h2 className="PageMint-sectionHeadline">via wallet: </h2>
+        {web3State.connected ? (
+          <span className="SectionConnection-address">
+            {prettyAddress(web3State.address)}
+            <button className="ButtonText" type="button" onClick={async () => web3Dispatch(await web3Disconnect())}>
+              (disconnect)
+            </button>
+          </span>
+        ) : (
+          <ButtonConnect />
+        )}
+      </div>
+      <div className="PageMint-section">
+        <label className="PageMint-inputLabel" htmlFor="token-quantity">
+          <span className="PageMint-sectionHeadline">
+            qty (
+            {TOKEN_PRICE}
+            Ξ ea):
+          </span>
+          <input
+            id="token-quantity"
+            className="PageMint-input"
+            onChange={(e) => setNumTokens(parseInt(e.target.value, 10))}
+            type="number"
+            min="1"
+            max="20"
+            required
+            value={numTokens}
+          />
+        </label>
+      </div>
+      <div className="PageMint-section">
+        <button className="Button" type="button" disabled={loading || !saleStatus || !web3State.connected} onClick={mintToken}>Mint ButtPunk(s)</button>
+      </div>
+      <div className="PageMint-section">
         {error ? (
           <p style={{ fontSize: '12px', color: 'red' }}>
             {`Error${
@@ -130,74 +129,6 @@ function PageMint() {
         ) : (
           ''
         )}
-      </div>
-      <div>
-        <div>
-          <div>
-            <h1>
-              PFP Test
-            </h1>
-            <h4 style={{ fontWeight: '400' }}>
-              {!web3State.connected ? (
-                'Connect to mint a token'
-              ) : (
-                <>
-                  Connected to
-                  {' '}
-                  <span style={{ fontWeight: 'bold' }}>{selectedChain.name}</span>
-                  {' '}
-                  as...
-                </>
-              )}
-            </h4>
-            <SectionConnect />
-          </div>
-          {!web3State.connected ? (
-            ''
-          ) : (
-            <div>
-              <h4>
-                Minting (
-                {saleStatus ? 'open' : 'closed'}
-                )
-              </h4>
-              <input
-                onChange={(e) => setNumTokens(parseInt(e.target.value, 10))}
-                type="number"
-                min="1"
-                max="20"
-                required
-                value={numTokens}
-                disabled={loading || !saleStatus}
-              />
-              <button type="button" disabled={loading || !saleStatus} onClick={mintToken}>Mint Token(s)</button>
-              <h4>Owner Controls</h4>
-              {saleStatus ? (
-                <button type="button" disabled={loading} onClick={pauseSale}>Pause Sale</button>
-              ) : (
-                <button type="button" disabled={loading} onClick={startSale}>Start Sale</button>
-              )}
-              <button type="button" disabled={loading} onClick={withdraw}>Withdraw</button>
-            </div>
-          )}
-
-          {/* <div style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          maxWidth: '600px',
-          margin: '0 auto',
-        }}
-        >
-          <p style={{ textAlign: 'left' }}>
-            {accountState && accountState.assets && accountState.assets.name}
-          </p>
-          <p style={{ textAlign: 'right' }}>
-            {accountState && accountState.assets && accountState.assets.balance}
-            {' '}
-            {accountState && accountState.assets && accountState.assets.symbol}
-          </p>
-        </div> */}
-        </div>
       </div>
     </div>
   );

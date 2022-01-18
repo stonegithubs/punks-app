@@ -1,10 +1,10 @@
-import './PageHome.css';
+import './PageOwners.css';
 import React, { useEffect, useState } from 'react';
 import Web3 from 'web3';
 import { getContract } from '../service/web3';
 import { useWeb3Context } from '../context/Web3Context';
 import supportedChains from '../data/supportedChains';
-import SectionConnect from './SectionConnect';
+import SectionConnection from './SectionConnection';
 
 const TOKEN_PRICE = 0.0001; // in eth
 
@@ -113,7 +113,7 @@ function PageOwners() {
     }
   }
   return (
-    <div className="PageHome">
+    <div className="PageOwners">
       <div>
         {error ? (
           <p style={{ fontSize: '12px', color: 'red' }}>
@@ -150,7 +150,7 @@ function PageOwners() {
                 </>
               )}
             </h4>
-            <SectionConnect />
+            <SectionConnection />
           </div>
           {!web3State.connected ? (
             ''
