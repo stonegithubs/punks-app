@@ -1,11 +1,13 @@
 import './AppFooter.css';
 import React from 'react';
+import PropTypes from 'prop-types';
+import classnames from 'classnames';
 
 import AnchorText from './AnchorText';
 
-function AppFooter() {
+function AppFooter({ className }) {
   return (
-    <footer className="AppFooter">
+    <footer className={classnames('AppFooter', className)}>
       <p>
         <AnchorText href="/">Terms & Conditions</AnchorText>
       </p>
@@ -15,5 +17,13 @@ function AppFooter() {
     </footer>
   );
 }
+
+AppFooter.defaultProps = {
+  className: '',
+};
+
+AppFooter.propTypes = {
+  className: PropTypes.string,
+};
 
 export default AppFooter;

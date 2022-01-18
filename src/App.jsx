@@ -13,7 +13,7 @@ function App() {
           <PageHome />
         </main>
       </div>
-      <AppFooter />
+      <AppFooter className="App-footer" />
     </div>
   );
 }

@@ -1,6 +1,5 @@
 .App {
   text-align: center;
-  max-width: 1000px;
   padding: 16px;
   margin: 0 auto;
   min-height: 100vh;
@@ -9,5 +8,8 @@
   justify-content: space-between;
 }
 
+.App-footer,
 .App-main {
+  margin: 0 auto;
+  max-width: 1000px;
 }
