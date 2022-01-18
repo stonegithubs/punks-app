@@ -14,14 +14,17 @@
 
 .AppHeader-logo {
   margin: 0 20px;
-  transition: 0.2s transform;
+}
+.AppHeader-logo .AppLogo-title {
   backface-visibility: hidden;
+  transition: 0.2s transform ease;
 }
 .AppHeader-logo:focus,
 .AppHeader-logo:hover {
   text-decoration: none;
 }
-.AppHeader-logo:focus,
-.AppHeader-logo:hover {
-  transform: scale(1.1);
+.AppHeader-logo:focus .AppLogo-title,
+.AppHeader-logo:hover .AppLogo-title {
+  /* transform: scale(1.1); */
+  transform: scale(1.1) translate(-50%, -50%);
 }

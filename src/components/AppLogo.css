@@ -4,7 +4,7 @@
 .AppLogo-abbr {
   font-family: "Press Start 2P", cursive;
   font-size: 40px;
-  color: #fff;
+  color: #ecb7ea;
 }
 
 .AppLogo-title {
@@ -12,10 +12,16 @@
   font-size: 30px;
   color: #000;
   margin: 0;
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: top left;
+  transform: translate(-50%, -50%);
 }
 
 /* animations */
-.AppLogo {
+/* .AppLogo {
   backface-visibility: hidden;
 }
 .AppLogo-abbr {
@@ -25,16 +31,9 @@
   animation-iteration-count: 1;
 }
 .AppLogo-title {
-  display: block;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform-origin: top left;
-  transform: translate(-50%, -50%);
   opacity: 0;
   animation-name: AppLogo-title--enter;
   animation-duration: 0.25s;
-  /* animation-delay: 0.5s; */
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
 }
@@ -54,4 +53,4 @@
     transform: scale(1) translate(-50%, -50%);
     opacity: 1;
   }
-}
+} */
