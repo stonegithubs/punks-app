@@ -2,17 +2,16 @@ import './AppFooter.css';
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-
-import AnchorText from './AnchorText';
+import { Link } from 'react-router-dom';
 
 function AppFooter({ className }) {
   return (
     <footer className={classnames('AppFooter', className)}>
       <p>
-        <AnchorText href="/">Terms & Conditions</AnchorText>
+        <Link className="AnchorText" to="/terms">Terms & Conditions</Link>
       </p>
       <p className="AppFooter-legal">
-        ButtPunks is not affiliated with LarvaLabs. It is a parody of CryptoPunks and nothing more.
+        ButtPunks is not affiliated with LarvaLabs. ButtPunks is a parody of CryptoPunks.
       </p>
     </footer>
   );

@@ -1,20 +1,47 @@
 import './App.css';
 import React from 'react';
-import PageHome from './components/PageHome';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import AppHeader from './components/AppHeader';
 import AppFooter from './components/AppFooter';
+import PageHome from './components/PageHome';
+import PageMint from './components/PageMint';
+import PageOwners from './components/PageOwners';
+import PageTerms from './components/PageTerms';
 
 function App() {
   return (
-    <div className="App">
-      <div className="App-inner">
-        <AppHeader />
-        <main className="App-main">
-          <PageHome />
-        </main>
+    <Router>
+      <div className="App">
+        <div className="App-inner">
+          <AppHeader />
+          <main className="App-main">
+            <Routes>
+              <Route
+                exact
+                path="/"
+                element={<PageHome />}
+              />
+              <Route
+                exact
+                path="/mint"
+                element={<PageMint />}
+              />
+              <Route
+                exact
+                path="/owners"
+                element={<PageOwners />}
+              />
+              <Route
+                exact
+                path="/terms"
+                element={<PageTerms />}
+              />
+            </Routes>
+          </main>
+        </div>
+        <AppFooter className="App-footer" />
       </div>
-      <AppFooter className="App-footer" />
-    </div>
+    </Router>
   );
 }
 
