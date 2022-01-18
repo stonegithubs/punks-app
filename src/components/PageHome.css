@@ -1,6 +1,9 @@
 .PageHome {
   text-align: left;
 }
+.PageHome-mainImg {
+  margin-bottom: 20px;
+}
 .PageHome-section {
   margin-bottom: 2em;
 }

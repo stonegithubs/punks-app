@@ -22,38 +22,3 @@
   transform-origin: top left;
   transform: translate(-50%, -50%);
 }
-
-/* animations */
-/* .AppLogo {
-  backface-visibility: hidden;
-}
-.AppLogo-abbr {
-  display: block;
-  animation-name: AppLogo-abbr--enter;
-  animation-duration: 0.25s;
-  animation-iteration-count: 1;
-}
-.AppLogo-title {
-  opacity: 0;
-  animation-name: AppLogo-title--enter;
-  animation-duration: 0.25s;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-}
-
-@keyframes AppLogo-abbr--enter {
-  from {
-  }
-  to {
-  }
-}
-@keyframes AppLogo-title--enter {
-  from {
-    transform: scale(0.5) translate(-50%, -50%);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1) translate(-50%, -50%);
-    opacity: 1;
-  }
-} */

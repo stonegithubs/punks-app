@@ -13,7 +13,7 @@ function App() {
     <Router>
       <div className="App">
         <div className="App-inner">
-          <AppHeader />
+          <AppHeader className="App-header" />
           <main className="App-main">
             <Routes>
               <Route

@@ -1,10 +1,48 @@
 .App {
+  position: relative;
   text-align: center;
   margin: 0 auto;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+.App::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  right: -400vh;
+  bottom: 0;
+  left: 0%;
+  background-image: url("../images/Skin-5.png");
+  background-size: auto 100%;
+  background-repeat: repeat-x;
+  background-position: 50% 50%;
+  animation-name: bg-scroll;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  opacity: 0.2;
+}
+@media (prefers-reduced-motion) {
+  .App::before {
+    animation: none;
+  }
+}
+@keyframes bg-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100vh);
+  }
+}
+
+.App-header,
+.App-footer,
+.App-main {
+  position: relative;
 }
 
 .App-footer,

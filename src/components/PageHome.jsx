@@ -2,14 +2,14 @@ import './PageHome.css';
 import React from 'react';
 import { useWeb3Context } from '../context/Web3Context';
 import AnchorAddress from './AnchorAddress';
+import GridImgSrc from '../images/grid.jpg';
 
 function PageHome() {
   const { web3State } = useWeb3Context();
   return (
     <div className="PageHome">
       <div className="PageHome-section">
-        <img src="//placekitten.com/g/1000/500" alt="A sample grid of ButtPunks" />
-        <h1 className="PageHome-headline">WELCOME TO BUTTPUNKS</h1>
+        <img className="PageHome-mainImg" src={GridImgSrc} alt="A sample grid of ButtPunks" />
         <p className="PageHome-blurb">
           ButtPunks is a limited collection of 10,000 unique NFT butts living on
           the Ethereum blockchain. Each butt was carefully crafted by smashing
