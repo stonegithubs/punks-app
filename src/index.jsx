@@ -4,7 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import CookieConsent from 'react-cookie-consent';
 import ReactGA from 'react-ga';
-import App from './App';
+import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 
 import { Web3Provider } from './context/Web3Context';

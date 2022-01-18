@@ -1,12 +1,12 @@
 import './App.css';
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import AppHeader from './components/AppHeader';
-import AppFooter from './components/AppFooter';
-import PageHome from './components/PageHome';
-import PageMint from './components/PageMint';
-import PageInfo from './components/PageInfo';
-import PageTerms from './components/PageTerms';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import AppHeader from './AppHeader';
+import AppFooter from './AppFooter';
+import PageHome from './PageHome';
+import PageMint from './PageMint';
+import PageInfo from './PageInfo';
+import PageTerms from './PageTerms';
 
 function App() {
   return (
