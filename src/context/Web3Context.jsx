@@ -13,6 +13,7 @@ const INITIAL_STATE = {
   address: null,
   chainId: 1,
   networkId: 1,
+  contractAddress: '',
 };
 
 // ACTIONS
@@ -55,6 +56,7 @@ function REDUCER(state, [type, payload]) {
         address: payload.address,
         chainId: payload.chainId,
         networkId: payload.networkId,
+        contractAddress: payload.contractAddress,
       };
     case ACTIONS.DISCONNECTED:
       return {

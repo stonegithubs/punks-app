@@ -70,8 +70,12 @@ export async function disconnect() {
   await WEB3_MODAL.clearCachedProvider();
 }
 
+export function getContractAddress() {
+  return CONTRACT_ADDRESS[chainId];
+}
+
 export async function getContract() {
-  const address = CONTRACT_ADDRESS[chainId];
+  const address = getContractAddress();
   if (!address) throw new Error(`Contract not deployed on network ${chainId}.`);
   return new web3.eth.Contract(SmartContract.abi, address);
 }

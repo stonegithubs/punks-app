@@ -1,0 +1,16 @@
+.PageHome {
+  text-align: left;
+}
+.PageHome-section {
+  margin-bottom: 2em;
+}
+.PageHome-headline {
+  margin-bottom: 1em;
+}
+.PageHome-blurb {
+  margin-bottom: 1em;
+}
+.PageHome-section:last-child,
+.PageHome-blurb:last-child {
+  margin-bottom: 0;
+}

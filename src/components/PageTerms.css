@@ -1,3 +1,16 @@
-.PageTerms p {
+.PageTerms {
+  text-align: left;
+}
+.PageTerms-section {
+  margin-bottom: 2em;
+}
+.PageTerms-headline {
   margin-bottom: 1em;
+}
+.PageTerms-blurb {
+  margin-bottom: 1em;
+}
+.PageTerms-section:last-child,
+.PageTerms-blurb:last-child {
+  margin-bottom: 0;
 }
