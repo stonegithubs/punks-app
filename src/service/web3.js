@@ -16,6 +16,7 @@ export const CONTRACT_ADDRESS = {
 };
 
 export const WEB3_MODAL = new Web3Modal({
+  // cacheProvider: true,
   providerOptions: {
     walletconnect: {
       package: WalletConnect,
@@ -50,7 +51,6 @@ export async function connect() {
   const address = accounts[0];
   const networkId = await web3.eth.net.getId();
   chainId = await web3.eth.chainId();
-
   return {
     web3,
     provider,

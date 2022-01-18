@@ -1,0 +1,10 @@
+.ButtonText {
+  cursor: pointer;
+  background-color: transparent;
+  border: transparent;
+  font-weight: bold;
+}
+.ButtonText:focus,
+.ButtonText:hover {
+  text-decoration: underline;
+}

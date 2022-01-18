@@ -17,25 +17,26 @@ const INITIAL_STATE = {
 
 // ACTIONS
 export const ACTIONS = {
-  CONNECT: 'WEB3_CONNECT',
-  EVENT_CLOSE: 'WEB3_EVENT_CLOSE',
+  CONNECTED: 'WEB3_CONNECTED',
+  DISCONNECTED: 'WEB3_DISCONNECTED',
   EVENT_ACCOUNTS_CHANGE: 'WEB3_EVENT_ACCOUNTS_CHANGE',
   EVENT_CHAIN_CHANGE: 'WEB3_EVENT_CHAIN_CHANGE',
   EVENT_NETWORK_CHANGE: 'WEB3_EVENT_NETWORK_CHANGE',
 };
 export async function web3Connect() {
   const res = await connect();
-  return [ACTIONS.EVENT_NETWORK_CHANGE, res];
+  console.log(res);
+  return [ACTIONS.CONNECTED, res];
 }
 export async function web3Disconnect() {
   await disconnect();
-  return [ACTIONS.EVENT_CLOSE];
+  return [ACTIONS.DISCONNECTED];
 }
 export function web3HandlerClose() {
-  return [ACTIONS.EVENT_NETWORK_CHANGE];
+  return [ACTIONS.DISCONNECTED];
 }
 export function web3HandlerAccountsChange(accounts) {
-  return [ACTIONS.EVENT_NETWORK_CHANGE, { address: accounts[0] }];
+  return [ACTIONS.EVENT_ACCOUNTS_CHANGE, { address: accounts[0] }];
 }
 export async function web3HandlerChainChange(web3, chainId) {
   const networkId = await web3.eth.net.getId();
@@ -45,7 +46,7 @@ export async function web3HandlerChainChange(web3, chainId) {
 // REDUCER
 function REDUCER(state, [type, payload]) {
   switch (type) {
-    case ACTIONS.CONNECT:
+    case ACTIONS.CONNECTED:
       return {
         ...state,
         connected: true,
@@ -55,7 +56,7 @@ function REDUCER(state, [type, payload]) {
         chainId: payload.chainId,
         networkId: payload.networkId,
       };
-    case ACTIONS.EVENT_CLOSE:
+    case ACTIONS.DISCONNECTED:
       return {
         ...state,
         ...INITIAL_STATE,

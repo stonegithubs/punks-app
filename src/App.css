@@ -3,8 +3,11 @@
   max-width: 1000px;
   padding: 16px;
   margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.App-link {
-  color: #61dafb;
+.App-main {
 }

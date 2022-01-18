@@ -1,8 +1,14 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  font-family: "Roboto", sans-serif;
+  font-family: "Lato", sans-serif;
+  font-weight: 300;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #f6f6f6;
 }
 
 code {
@@ -12,4 +18,12 @@ code {
 
 p {
   margin: 0;
+}
+
+.AnchorLink {
+  font-weight: bold;
+}
+.AnchorLink:hover,
+.AnchorLink:focus {
+  text-decoration: underline;
 }

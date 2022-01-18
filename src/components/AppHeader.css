@@ -1,8 +1,27 @@
 .AppHeader {
   /* background-color: #282c34; */
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
   /* color: white; */
   color: rgb(12, 12, 13);
+}
+
+.AppHeader-link {
+  min-width: 6em;
+  display: block;
+}
+
+.AppHeader-logo {
+  margin: 0 20px;
+  transition: 0.2s transform;
+  backface-visibility: hidden;
+}
+.AppHeader-logo:focus,
+.AppHeader-logo:hover {
+  text-decoration: none;
+}
+.AppHeader-logo:focus,
+.AppHeader-logo:hover {
+  transform: scale(1.1);
 }
