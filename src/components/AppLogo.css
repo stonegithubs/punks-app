@@ -1,15 +1,17 @@
 .AppLogo {
   position: relative;
+  font-size: 66px;
 }
 .AppLogo-abbr {
+  display: block;
   font-family: "Press Start 2P", cursive;
-  font-size: 40px;
+  font-size: 1em;
   color: #ecb7ea;
 }
 
 .AppLogo-title {
   font-family: "Comforter Brush", cursive;
-  font-size: 30px;
+  font-size: 0.75em;
   color: #000;
   margin: 0;
   display: block;

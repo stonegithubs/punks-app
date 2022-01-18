@@ -1,206 +1,66 @@
 import './PageHome.css';
-import React, { useEffect, useState } from 'react';
-import Web3 from 'web3';
-import { getContract } from '../service/web3';
-import { useWeb3Context } from '../context/Web3Context';
-import supportedChains from '../data/supportedChains';
-import SectionConnect from './SectionConnect';
+import React from 'react';
 
-const TOKEN_PRICE = 0.0001; // in eth
-
-const GENERIC_ERROR = {
-  code: -1,
-  message: 'Unknown error',
-};
-
-function App() {
-  const { web3State } = useWeb3Context();
-  const [numTokens, setNumTokens] = useState(1);
-  const [saleStatus, setSaleStatus] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState();
-  const [success, setSuccess] = useState();
-  const selectedChain = supportedChains.find((chain) => chain.chain_id === web3State.chainId);
-  useEffect(() => {
-    if (!web3State.connected) return;
-    (async () => {
-      try {
-        const contract = await getContract();
-        const data = await contract.methods.saleStatus().call();
-        setSaleStatus(data);
-        setLoading(false);
-      } catch (err) {
-        // setError((err && err.error) || err || GENERIC_ERROR);
-        setLoading(false);
-      }
-    })();
-  }, [web3State.connected]);
-
-  // request access to the user's MetaMask account
-
-  async function startSale() {
-    try {
-      setError(null);
-      setSuccess(null);
-      setLoading(true);
-      const contract = await getContract();
-      await contract.methods.startSale(
-        Math.floor((Date.now() + 86400000 * 9) / 1000),
-      ).send({
-        from: web3State.address,
-      });
-      setSaleStatus(true);
-      setSuccess('Sale started!');
-      setLoading(false);
-    } catch (err) {
-      setError((err && err.error) || err || GENERIC_ERROR);
-      setLoading(false);
-    }
-  }
-
-  async function pauseSale() {
-    try {
-      setError(null);
-      setSuccess(null);
-      setLoading(true);
-      const contract = await getContract();
-      await contract.methods.pauseSale().send({
-        from: web3State.address,
-      });
-      setSaleStatus(false);
-      setSuccess('Sale paused!');
-      setLoading(false);
-    } catch (err) {
-      setError((err && err.error) || err || GENERIC_ERROR);
-      setLoading(false);
-    }
-  }
-
-  async function mintToken() {
-    if (!numTokens) return;
-    try {
-      setError(null);
-      setSuccess(null);
-      setLoading(true);
-      const contract = await getContract();
-      await contract.methods.mintToken(numTokens).send({
-        from: web3State.address,
-        value: Web3.utils.toWei(`${TOKEN_PRICE * numTokens}`, 'ether'),
-      });
-      setSuccess('Token(s) minted successfully!');
-      setLoading(false);
-    } catch (err) {
-      setError((err && err.error) || err || GENERIC_ERROR);
-      setLoading(false);
-    }
-  }
-
-  async function withdraw() {
-    if (!numTokens) return;
-    try {
-      setError(null);
-      setSuccess(null);
-      setLoading(true);
-      const contract = await getContract();
-      await contract.methods.withdraw().send({
-        from: web3State.address,
-      });
-      setSuccess('Withdraw successful!');
-      setLoading(false);
-    } catch (err) {
-      setError((err && err.error) || err || GENERIC_ERROR);
-      setLoading(false);
-    }
-  }
+function PageHome() {
   return (
     <div className="PageHome">
-      <div>
-        {error ? (
-          <p style={{ fontSize: '12px', color: 'red' }}>
-            {`Error${
-              error.code ? ` ${error.code}` : ''
-            }: ${error.message || error}`}
-
-          </p>
-        ) : (
-          ''
-        )}
-        {success ? (
-          <p style={{ fontSize: '12px', color: 'green' }}>{success}</p>
-        ) : (
-          ''
-        )}
+      <img src="//placekitten.com/g/1000/500" alt="preview" />
+      <div className="PageHome-section">
+        <h1>What the hell?</h1>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nec est interdum odio
+          lobortis semper sit amet commodo turpis. Duis dapibus venenatis nisl sed pharetra.
+          Quisque eu sagittis quam. Fusce lacinia, lorem sit amet pulvinar ullamcorper, justo
+          diam pulvinar nulla, eget finibus neque metus fringilla justo. Aliquam placerat urna
+          nec est posuere sagittis. Aenean eleifend venenatis tortor, ut sollicitudin turpis
+          faucibus mollis. Nam blandit semper leo, sed vehicula metus cursus ac. Maecenas at
+          ultrices quam. Mauris metus urna, vestibulum et volutpat at, congue eget nibh.
+        </p>
       </div>
-      <div>
-        <div>
-          <div>
-            <h1>
-              PFP Test
-            </h1>
-            <h4 style={{ fontWeight: '400' }}>
-              {!web3State.connected ? (
-                'Connect to mint a token'
-              ) : (
-                <>
-                  Connected to
-                  {' '}
-                  <span style={{ fontWeight: 'bold' }}>{selectedChain.name}</span>
-                  {' '}
-                  as...
-                </>
-              )}
-            </h4>
-            <SectionConnect />
-          </div>
-          {!web3State.connected ? (
-            ''
-          ) : (
-            <div>
-              <h4>
-                Minting (
-                {saleStatus ? 'open' : 'closed'}
-                )
-              </h4>
-              <input
-                onChange={(e) => setNumTokens(parseInt(e.target.value, 10))}
-                type="number"
-                min="1"
-                max="20"
-                required
-                value={numTokens}
-                disabled={loading || !saleStatus}
-              />
-              <button type="button" disabled={loading || !saleStatus} onClick={mintToken}>Mint Token(s)</button>
-              <h4>Owner Controls</h4>
-              {saleStatus ? (
-                <button type="button" disabled={loading} onClick={pauseSale}>Pause Sale</button>
-              ) : (
-                <button type="button" disabled={loading} onClick={startSale}>Start Sale</button>
-              )}
-              <button type="button" disabled={loading} onClick={withdraw}>Withdraw</button>
-            </div>
-          )}
-
-          {/* <div style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          maxWidth: '600px',
-          margin: '0 auto',
-        }}
-        >
-          <p style={{ textAlign: 'left' }}>
-            {accountState && accountState.assets && accountState.assets.name}
-          </p>
-          <p style={{ textAlign: 'right' }}>
-            {accountState && accountState.assets && accountState.assets.balance}
-            {' '}
-            {accountState && accountState.assets && accountState.assets.symbol}
-          </p>
-        </div> */}
-        </div>
+      <div className="PageHome-section">
+        <h1>What&apos;s an NFT?</h1>
+        <p>
+          Duis cursus congue augue, ut commodo ligula mattis quis. Aliquam tristique convallis
+          scelerisque. Interdum et malesuada fames ac ante ipsum primis in faucibus. Morbi sed metus
+          mauris. Proin mauris dolor, varius eget lorem non, vestibulum consectetur nisl. Mauris ut
+          vulputate tortor, vitae sagittis nulla. Vivamus maximus leo ex, ut elementum velit
+          pulvinar
+          vitae. Aliquam lacinia, nisl ultricies sodales porta, sapien lorem bibendum velit, non
+          vehicula sem eros id nunc. Vestibulum tortor eros, pretium vel ipsum eu, auctor eleifend
+          nisl. Suspendisse consequat hendrerit eleifend. Maecenas ligula diam, vulputate quis neque
+          ut, semper ultrices sem.
+        </p>
+      </div>
+      <div className="PageHome-section">
+        <h1>Isn&apos;t that just a JPG?</h1>
+        <p>
+          Curabitur fermentum elit massa, quis vestibulum lectus fermentum non. Quisque nec lorem
+          sit
+          amet mauris tincidunt rhoncus. Donec ultricies velit quis efficitur ornare. Nulla aliquam
+          blandit fermentum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Morbi
+          dictum felis in leo elementum, nec dapibus eros laoreet. Integer id magna eu nisi interdum
+          tempor. Nulla venenatis lorem vitae purus ultricies blandit. Pellentesque et risus at nunc
+          condimentum vehicula ut rutrum nisl. Curabitur facilisis mi egestas iaculis fringilla.
+          Nullam sollicitudin turpis lacus, vitae mollis nisi dapibus eu. Sed at velit auctor,
+          molestie orci id, lacinia leo.
+        </p>
+      </div>
+      <div className="PageHome-section">
+        <h1>Ok, I&apos;m sold. How do I get one?</h1>
+        <p>
+          Go to /mint and follow the steps there.
+          Quisque ac mollis dui, pretium dapibus est. Quisque bibendum arcu a erat efficitur
+          egestas. Ut accumsan nulla interdum dolor dictum tincidunt. Vivamus mollis sed eros id
+          vulputate. Phasellus dignissim at enim sed finibus. Duis non ultricies erat. Donec ac
+          felis mi. In hac habitasse platea dictumst. Curabitur finibus dignissim ante non
+          vestibulum.
+          Mauris vehicula mauris ex, ut consequat neque feugiat non. Maecenas mollis, risus at
+          imperdiet venenatis, est libero convallis erat, ac pulvinar ex magna vel augue.
+          Vivamus a aliquam risus.
+        </p>
       </div>
     </div>
   );
 }
 
-export default App;
+export default PageHome;
