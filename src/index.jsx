@@ -2,6 +2,7 @@ import './reset.css';
 import './index.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import CookieConsent from 'react-cookie-consent';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
@@ -12,6 +13,19 @@ ReactDOM.render(
     <Web3Provider>
       <App />
     </Web3Provider>
+    <CookieConsent
+      buttonText="Accept"
+      declineButtonText="Decline"
+      enableDeclineButton
+      style={{ backgroundColor: '#000' }}
+      buttonStyle={{ backgroundColor: '#ecb7ea' }}
+      declineButtonStyle={{ color: '#000', backgroundColor: '#ecb7ea' }}
+      onAccept={() => {
+        // init GA
+      }}
+    >
+      This website uses cookies to enhance the user experience.
+    </CookieConsent>
   </React.StrictMode>,
   document.getElementById('root'),
 );
