@@ -80,7 +80,7 @@ export default [
     },
   },
   {
-    name: 'Ethereum Kovan',
+    name: 'Ethereum Localhost:8545',
     short_name: 'local',
     chain: 'ETH',
     network: 'localhost',

@@ -1,0 +1,31 @@
+.PageInfo-headline {
+  margin-bottom: 0.5em;
+  text-transform: uppercase;
+  font-size: 1.667em;
+}
+.PageInfo-section {
+  margin-bottom: 1em;
+}
+.PageInfo-sectionHeadline {
+  display: block;
+  font-weight: bold;
+  font-size: 16px;
+}
+.PageInfo-inputLabel .PageInfo-sectionHeadline {
+  margin-bottom: 1em;
+}
+.PageInfo-extendedInput {
+  border-radius: 8px;
+  display: inline-block;
+  background-color: #f2f2f2;
+}
+.PageInfo-extendedInputInner {
+  background-color: #f2f2f2;
+  padding: 0 1em 0 0.5em;
+  font-size: 16px;
+}
+.PageInfo-input {
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  box-shadow: 0;
+}

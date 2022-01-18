@@ -26,7 +26,6 @@ export const ACTIONS = {
 };
 export async function web3Connect() {
   const res = await connect();
-  console.log(res);
   return [ACTIONS.CONNECTED, res];
 }
 export async function web3Disconnect() {

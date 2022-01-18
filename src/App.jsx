@@ -5,7 +5,7 @@ import AppHeader from './components/AppHeader';
 import AppFooter from './components/AppFooter';
 import PageHome from './components/PageHome';
 import PageMint from './components/PageMint';
-import PageOwners from './components/PageOwners';
+import PageInfo from './components/PageInfo';
 import PageTerms from './components/PageTerms';
 
 function App() {
@@ -28,8 +28,8 @@ function App() {
               />
               <Route
                 exact
-                path="/owners"
-                element={<PageOwners />}
+                path="/info"
+                element={<PageInfo />}
               />
               <Route
                 exact

@@ -1,8 +1,6 @@
 const webpack = require('webpack');
 
-module.exports = function override(config, env) {
-  console.log('override!');
-
+module.exports = function override(config) {
   const { resolve, plugins } = config;
 
   // See https://github.com/WalletConnect/walletconnect-monorepo/issues/584

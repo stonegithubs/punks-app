@@ -4,9 +4,10 @@ import classnames from 'classnames';
 import Web3 from 'web3';
 import { getContract, getContractAddress } from '../service/web3';
 import supportedChains from '../data/supportedChains';
-import { useWeb3Context, web3Disconnect } from '../context/Web3Context';
-import { prettyAddress } from '../util/web3Address';
+import { useWeb3Context } from '../context/Web3Context';
 import ButtonConnect from './ButtonConnect';
+import AnchorAddress from './AnchorAddress';
+import AnchorWalletAddress from './AnchorWalletAddress';
 
 const TOKEN_PRICE = 0.0001; // in eth
 
@@ -16,7 +17,7 @@ const GENERIC_ERROR = {
 };
 
 function PageMint() {
-  const { web3State, web3Dispatch } = useWeb3Context();
+  const { web3State } = useWeb3Context();
   const [numTokens, setNumTokens] = useState(1);
   const [saleStatus, setSaleStatus] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -69,12 +70,12 @@ function PageMint() {
       </h1>
       <div className="PageMint-section">
         <h2 className="PageMint-sectionHeadline">on: </h2>
-        <p>{selectedChain.name}</p>
+        <p>{selectedChain.network}</p>
       </div>
       <div className="PageMint-section">
         <h2 className="PageMint-sectionHeadline">with contract: </h2>
         {contractAddress ? (
-          <a href={`https://etherscan.io/address/${contractAddress}`} target="_blank" rel="noreferrer">{prettyAddress(contractAddress)}</a>
+          <AnchorAddress chainId={web3State.chainId} address={contractAddress} />
         ) : (
           <span>[smart contract has not been deployed on this chain]</span>
         )}
@@ -83,10 +84,7 @@ function PageMint() {
         <h2 className="PageMint-sectionHeadline">via wallet: </h2>
         {web3State.connected ? (
           <span className="SectionConnection-address">
-            {prettyAddress(web3State.address)}
-            <button className="ButtonText" type="button" onClick={async () => web3Dispatch(await web3Disconnect())}>
-              (disconnect)
-            </button>
+            <AnchorWalletAddress />
           </span>
         ) : (
           <ButtonConnect />
