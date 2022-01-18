@@ -3,6 +3,7 @@ import './index.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import CookieConsent from 'react-cookie-consent';
+import ReactGA from 'react-ga';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
@@ -15,13 +16,10 @@ ReactDOM.render(
     </Web3Provider>
     <CookieConsent
       buttonText="Accept"
-      declineButtonText="Decline"
-      enableDeclineButton
       style={{ backgroundColor: '#000' }}
       buttonStyle={{ backgroundColor: '#ecb7ea' }}
-      declineButtonStyle={{ color: '#000', backgroundColor: '#ecb7ea' }}
       onAccept={() => {
-        // init GA
+        ReactGA.initialize('G-S3TT2WKBV5');
       }}
     >
       This website uses cookies to enhance the user experience.
