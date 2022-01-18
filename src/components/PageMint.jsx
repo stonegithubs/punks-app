@@ -60,7 +60,7 @@ function PageMint() {
   return (
     <div className="PageMint">
       <h1 className="PageMint-headline">
-        {!saleStatus && web3State.connected ? 'Minting is closed ' : 'Mint PunkButts ' }
+        {!saleStatus && web3State.connected ? 'Minting is closed ' : 'Mint ButtPunks ' }
       </h1>
       <div className="PageMint-section">
         <h2 className="PageMint-sectionHeadline">on: </h2>
