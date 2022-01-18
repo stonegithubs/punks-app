@@ -1,5 +1,6 @@
 import './PageMint.css';
 import React, { useEffect, useState } from 'react';
+import classnames from 'classnames';
 import Web3 from 'web3';
 import { getContract, getContractAddress } from '../service/web3';
 import supportedChains from '../data/supportedChains';
@@ -111,7 +112,22 @@ function PageMint() {
         </label>
       </div>
       <div className="PageMint-section">
-        <button className="Button" type="button" disabled={loading || !saleStatus || !web3State.connected} onClick={mintToken}>Mint ButtPunk(s)</button>
+        <button
+          className={
+            classnames(
+              'Button',
+              {
+                'Button--disabled': !saleStatus || !web3State.connected,
+                'Button--loading': loading,
+              },
+            )
+          }
+          type="button"
+          disabled={loading || !saleStatus || !web3State.connected}
+          onClick={mintToken}
+        >
+          Confirm
+        </button>
       </div>
       <div className="PageMint-section">
         {error ? (

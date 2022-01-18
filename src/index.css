@@ -9,7 +9,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #fff;
-  font-size: 28px;
+  font-size: 18px;
   overflow-y: scroll;
   overflow-x: hidden;
 }
@@ -65,30 +65,33 @@ code {
   );
 }
 .Button:focus,
-.Button:hover {
+.Button:hover,
+.Button--loading {
   background: #2b2b2b;
   transition-delay: 0.25s;
 }
 .Button:focus::after,
-.Button:hover::after {
+.Button:hover::after,
+.Button--loading::after {
   animation: shine 0.5s cubic-bezier(0.01, 0.56, 1, 1);
+}
+.Button--loading::after {
+  animation-iteration-count: infinite;
 }
 @keyframes shine {
   100% {
     left: -200%;
   }
 }
-.Button:disabled,
-.Button:disabled:hover,
-.Button:disabled:focus {
+.Button--disabled,
+.Button--disabled:hover,
+.Button--disabled:focus {
   cursor: default;
-  background-color: #ccc;
-  border: 0;
-  color: #666;
-  border: 1px solid #999;
+  background-color: #f6f6f6;
+  color: #c1c1c1;
 }
-.Button:disabled:focus::after,
-.Button:disabled:hover::after {
+.Button--disabled:focus::after,
+.Button--disabled:hover::after {
   animation: none;
   background-image: none;
 }

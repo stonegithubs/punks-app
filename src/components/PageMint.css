@@ -1,5 +1,7 @@
 .PageMint-headline {
   margin-bottom: 0.5em;
+  text-transform: uppercase;
+  font-size: 1.667em;
 }
 .PageMint-section {
   margin-bottom: 1em;
