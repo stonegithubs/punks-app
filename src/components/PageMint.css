@@ -5,11 +5,12 @@
 }
 .PageMint-section {
   margin-bottom: 1em;
+  font-weight: 700;
 }
 .PageMint-sectionHeadline {
   display: block;
-  font-weight: bold;
   font-size: 16px;
+  font-weight: 300;
 }
 .PageMint-inputLabel .PageMint-sectionHeadline {
   margin-bottom: 1em;
