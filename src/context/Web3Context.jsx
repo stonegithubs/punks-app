@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 
-import ButtPunkSmartContract from '../artifacts/contracts/pfpTest.sol/PFPTest.json';
+import ButtPunkSmartContract from '../artifacts/contracts/ButtPunks.sol/ButtPunks.json';
 
 import {
   BUTTPUNK_CONTRACT_MAP,

@@ -12,7 +12,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/finance/PaymentSplitter.sol";
 
-contract PFPTest is ERC721, Ownable, PaymentSplitter {
+contract ButtPunks is ERC721, Ownable, PaymentSplitter {
     using Strings for uint256;
     using SafeMath for uint256;
     using Counters for Counters.Counter;
@@ -32,14 +32,14 @@ contract PFPTest is ERC721, Ownable, PaymentSplitter {
     bool public saleIsActive = false;
 
     constructor()
-        ERC721("PFP Test", "PFPT")
+        ERC721("ButtPunks", "BUTTS")
         PaymentSplitter(ADDRESS_LIST, SHARE_LIST)
     {
         reserveTokens();
     }
 
     function _baseURI() internal pure override returns (string memory) {
-        return "ipfs://QmaNUFKMgdFGgTWd9ZWfLNozoXU4tCnNEs2qarLwxTreK7/";
+        return "ipfs://QmU9YSQCjvHmezoNgHrPGYY39bR1qar3wshyA2NMTregfw/";
     }
 
     function tokenURI(uint256 tokenId)
@@ -96,7 +96,7 @@ contract PFPTest is ERC721, Ownable, PaymentSplitter {
         require(saleIsActive, "Sale must be active to mint a token");
         require(
             numberOfTokens <= MAX_PURCHASE,
-            "Can only mint 20 tokens at a time"
+            "Each wallet can only mint 20 tokens at a time"
         );
         require(
             _tokenIds.current().add(numberOfTokens) <= MAX_SUPPLY,

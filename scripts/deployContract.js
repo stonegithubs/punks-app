@@ -1,5 +1,7 @@
+/* eslint-disable */
+
 async function main() {
-  const ContractFactory = await ethers.getContractFactory('PFPTest');
+  const ContractFactory = await ethers.getContractFactory('ButtPunks');
 
   // Start deployment, returning a promise that resolves to a contract object
   const contractObj = await ContractFactory.deploy();
