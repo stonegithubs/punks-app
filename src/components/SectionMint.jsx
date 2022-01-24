@@ -29,12 +29,14 @@ function SectionMint() {
       return;
     }
     const selectedChain = supportedChains.find((chain) => chain.chain_id === web3State.chainId);
-    if (process.env.NODE_ENV === 'development' && (!web3State.buttpunkContractAddress)) {
-      setError(`You are currently connected to ${(selectedChain && selectedChain.name) || `chain ${web3State.chainId}`}. Change your wallet chain to Ethereum to mint butts.`);
-      return;
-    }
-    if (process.env.NODE_ENV !== 'development' && (!selectedChain || selectedChain.chain_id !== 1)) {
-      setError(`You are currently connected to ${(selectedChain && selectedChain.name) || `chain ${web3State.chainId}`}. Change your wallet chain to Ethereum Mainnet to mint butts.`);
+    const isProd = false && process.env.NODE_ENV !== 'development'; // TODO: UPDATE WHEN WE GO LIVE FOR REAL
+    const isWrongChain = (isProd && web3State.chainId !== 1)
+      || (!isProd && !web3State.buttpunkContractAddress);
+    const targetChain = isProd
+      ? supportedChains.find((chain) => chain.network === 'mainnet')
+      : supportedChains.find((chain) => chain.network === 'rinkeby');
+    if (isWrongChain) {
+      setError(`You are currently connected to ${(selectedChain && selectedChain.name) || `chain ${web3State.chainId}`}. Change your wallet chain to ${targetChain.name} to mint butts.`);
       return;
     }
     setError(null);
