@@ -22,7 +22,7 @@ contract ButtPunks is ERC721, Ownable, PaymentSplitter {
     uint256 public constant TOKEN_PRICE = 0.0001 ether;
     address[] private ADDRESS_LIST = [
         0xD1aDe89F8826d122F0a3Ab953Bc293E144042539,
-        0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+        0x4a4F584cA801192D459aFDF93BE3aE2C627FF8a2
     ];
     uint256[] private SHARE_LIST = [50, 50];
 
