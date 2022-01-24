@@ -2,7 +2,6 @@ import './PageInfo.css';
 import React, { useEffect, useState } from 'react';
 import classnames from 'classnames';
 import { useWeb3Context } from '../context/Web3Context';
-import supportedChains from '../data/supportedChains';
 import ButtonConnect from './ButtonConnect';
 import { apiGetAccountAssets } from '../service/ethApi';
 import AnchorAddress from './AnchorAddress';
@@ -22,7 +21,6 @@ function PageInfo() {
   const [error, setError] = useState();
   const [success, setSuccess] = useState();
   const [contractBalance, setContractBalance] = useState(0);
-  const selectedChain = supportedChains.find((chain) => chain.chain_id === web3State.chainId);
   const isOwner = web3State.connected && web3State.address === ownerAddress;
 
   useEffect(() => {
@@ -116,29 +114,6 @@ function PageInfo() {
 
   return (
     <div className="PageInfo">
-      <h1 className="PageInfo-headline">
-        Info
-      </h1>
-      <div className="PageInfo-section">
-        <h2 className="PageInfo-sectionHeadline">network: </h2>
-        <p>{selectedChain.network}</p>
-      </div>
-      <div className="PageMint-section">
-        <h2 className="PageMint-sectionHeadline">contract: </h2>
-        {web3State.buttpunkContractAddress ? (
-          <AnchorAddress chainId={web3State.chainId} address={web3State.buttpunkContractAddress} />
-        ) : (
-          <span>[smart contract has not been deployed on this chain]</span>
-        )}
-      </div>
-      <div className="PageMint-section">
-        <h2 className="PageMint-sectionHeadline">owner: </h2>
-        {ownerAddress ? (
-          <AnchorAddress chainId={web3State.chainId} address={ownerAddress} />
-        ) : (
-          <span>[cannot retrieve contract owner]</span>
-        )}
-      </div>
       <div className="PageInfo-section">
         <h2 className="PageInfo-sectionHeadline">wallet: </h2>
         {web3State.connected ? (
@@ -147,6 +122,22 @@ function PageInfo() {
           </span>
         ) : (
           <ButtonConnect />
+        )}
+      </div>
+      <div className="PageInfo-section">
+        <h2 className="PageInfo-sectionHeadline">contract: </h2>
+        {web3State.buttpunkContractAddress ? (
+          <AnchorAddress chainId={web3State.chainId} address={web3State.buttpunkContractAddress} />
+        ) : (
+          <span>[smart contract has not been deployed on this chain]</span>
+        )}
+      </div>
+      <div className="PageInfo-section">
+        <h2 className="PageInfo-sectionHeadline">contract owner: </h2>
+        {ownerAddress ? (
+          <AnchorAddress chainId={web3State.chainId} address={ownerAddress} />
+        ) : (
+          <span>[cannot retrieve contract owner]</span>
         )}
       </div>
       {!isOwner ? '' : (

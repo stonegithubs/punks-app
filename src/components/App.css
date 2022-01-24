@@ -42,7 +42,12 @@
     background-position: -100vh 0;
   }
 }
-
+.App-inner,
+.App-main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
 .App-header,
 .App-footer,
 .App-main {
