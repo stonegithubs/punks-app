@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import classnames from 'classnames';
 import { useWeb3Context } from '../context/Web3Context';
 import ButtonConnect from './ButtonConnect';
-import { apiGetAccountAssets } from '../service/ethApi';
+// import { apiGetAccountAssets } from '../service/ethApi';
 import AnchorAddress from './AnchorAddress';
 import AnchorWalletAddress from './AnchorWalletAddress';
 
@@ -16,47 +16,51 @@ function PageInfo() {
   const { web3State } = useWeb3Context();
   const [saleStatus, setSaleStatus] = useState(false);
   const [ownerAddress, setOwnerAddress] = useState(null);
+  const [releaseRatio, setReleaseRatio] = useState(0);
   const [loadingWithdraw, setLoadingWithdraw] = useState(false);
   const [loadingStatus, setLoadingStatus] = useState(false);
+  const [totalRevenue, setTotalRevenue] = useState(0);
+  const [balanceAvailable, setBalanceAvailable] = useState(0);
   const [error, setError] = useState();
   const [success, setSuccess] = useState();
-  const [contractBalance, setContractBalance] = useState(0);
   const isOwner = web3State.connected && web3State.address === ownerAddress;
 
   useEffect(() => {
-    if (!web3State.buttpunkContract) {
+    if (!web3State.buttpunkContractAddress) {
       setSaleStatus(false);
       setOwnerAddress(null);
       return;
     }
     (async () => {
       try {
-        const newSaleStatus = await web3State.buttpunkContract.methods.saleStatus().call();
+        const newSaleStatus = await web3State.buttpunkContract.methods.getSaleStatus().call();
         const newOwnerAddress = await web3State.buttpunkContract.methods.owner().call();
+        const totalShares = await web3State.buttpunkContract.methods.totalShares().call();
+        const shares = await web3State.buttpunkContract.methods.shares(web3State.address).call();
+        const totalReleased = parseInt(
+          await web3State.buttpunkContract.methods.totalReleased().call(),
+          10,
+        );
+        const released = await web3State
+          .buttpunkContract.methods.released(web3State.address).call();
+        const balance = parseInt(
+          await web3State.web3.eth.getBalance(web3State.buttpunkContractAddress),
+          10,
+        );
+        const myReleaseRatio = shares / totalShares;
+        const totalBalance = balance + totalReleased;
+        const myTotalBalance = totalBalance * myReleaseRatio;
+        const myBalance = myTotalBalance - released;
+        setTotalRevenue(totalBalance);
+        setBalanceAvailable(myBalance);
         setSaleStatus(newSaleStatus);
         setOwnerAddress(newOwnerAddress);
+        setReleaseRatio(myReleaseRatio);
       } catch (err) {
         console.error(err);
       }
     })();
   }, [web3State]);
-
-  useEffect(() => {
-    // get contract assets
-    if (!web3State.chainId || !web3State.buttpunkContractAddress) return;
-    (async () => {
-      try {
-        const contractAssets = await apiGetAccountAssets(
-          web3State.buttpunkContractAddress,
-          web3State.chainId,
-        );
-        const newBalance = contractAssets && contractAssets.length && contractAssets[0].balance;
-        setContractBalance(newBalance || 0);
-      } catch (err) {
-        setContractBalance(0);
-      }
-    })();
-  }, [web3State.chainId, web3State.buttpunkContractAddress]);
 
   // request access to the user's MetaMask account
 
@@ -65,9 +69,7 @@ function PageInfo() {
       setError(null);
       setSuccess(null);
       setLoadingStatus(true);
-      await web3State.buttpunkContract.methods.startSale(
-        Math.floor((Date.now() + 86400000 * 9) / 1000),
-      ).send({
+      await web3State.buttpunkContract.methods.setSaleStatus(true).send({
         from: web3State.address,
       });
       setSaleStatus(true);
@@ -84,7 +86,7 @@ function PageInfo() {
       setError(null);
       setSuccess(null);
       setLoadingStatus(true);
-      await web3State.buttpunkContract.methods.pauseSale().send({
+      await web3State.buttpunkContract.methods.setSaleStatus(false).send({
         from: web3State.address,
       });
       setSaleStatus(false);
@@ -101,17 +103,17 @@ function PageInfo() {
       setError(null);
       setSuccess(null);
       setLoadingWithdraw(true);
-      await web3State.buttpunkContract.methods.withdraw().send({
+      const res = await web3State.buttpunkContract.methods.release(web3State.address).send({
         from: web3State.address,
       });
-      setSuccess('Withdraw successful!');
+      setSuccess('Withdraw successful!', res);
       setLoadingWithdraw(false);
+      setBalanceAvailable(0);
     } catch (err) {
       setError((err && err.error) || err || GENERIC_ERROR);
       setLoadingWithdraw(false);
     }
   }
-
   return (
     <div className="PageInfo">
       <div className="PageInfo-section">
@@ -140,46 +142,89 @@ function PageInfo() {
           <span>[cannot retrieve contract owner]</span>
         )}
       </div>
+      <div className="PageInfo-section">
+        <h2 className="PageInfo-sectionHeadline">total revenue: </h2>
+        <p>
+          {totalRevenue / 1000000000000000000}
+          Ξ
+        </p>
+      </div>
+      {releaseRatio <= 0 ? '' : (
+        <div className="PageInfo-section">
+          <h2 className="PageInfo-sectionHeadline">
+            my total revenue (
+            {releaseRatio * 100}
+            %):
+            {' '}
+          </h2>
+          <p>
+            {(totalRevenue / 1000000000000000000) * releaseRatio}
+            Ξ
+          </p>
+        </div>
+      )}
+      {balanceAvailable <= 0 ? '' : (
+        <div className="PageInfo-section">
+          <h2 className="PageInfo-sectionHeadline">
+            my available revenue
+          </h2>
+          <p>
+            {balanceAvailable / 1000000000000000000}
+            Ξ
+          </p>
+          <br />
+          <button
+            className={
+              classnames(
+                'Button',
+                {
+                  'Button--disabled': !web3State.connected,
+                  'Button--loading': loadingWithdraw,
+                },
+              )
+            }
+            type="button"
+            disabled={loadingWithdraw || !web3State.connected}
+            onClick={withdraw}
+          >
+            Withdraw
+          </button>
+        </div>
+      )}
       {!isOwner ? '' : (
-        <>
-          <div className="PageInfo-section">
-            <h2 className="PageInfo-sectionHeadline">balance: </h2>
-            <p>
-              {contractBalance}
-              Ξ
-            </p>
+        <div className="PageInfo-section">
+          <h2 className="PageInfo-sectionHeadline">status: </h2>
+          <p>
+            {(() => {
+              if (!web3State.buttpunkContractAddress) {
+                return 'n/a';
+              } if (!saleStatus) {
+                return 'paused';
+              }
+              return 'active';
+            })()}
+          </p>
+          <br />
+          {saleStatus ? (
             <button
               className={
-                classnames(
-                  'Button',
-                  {
-                    'Button--disabled': !web3State.connected,
-                    'Button--loading': loadingWithdraw,
-                  },
-                )
-              }
+                  classnames(
+                    'Button',
+                    {
+                      'Button--disabled': !web3State.connected,
+                      'Button--loading': loadingStatus,
+                    },
+                  )
+                }
               type="button"
-              disabled={loadingWithdraw || !web3State.connected}
-              onClick={withdraw}
+              disabled={!web3State.connected || loadingStatus}
+              onClick={pauseSale}
             >
-              Withdraw
+              Pause Sale
             </button>
-          </div>
-          <div className="PageInfo-section">
-            <h2 className="PageInfo-sectionHeadline">status: </h2>
-            <p>
-              {(() => {
-                if (!web3State.buttpunkContractAddress) {
-                  return 'n/a';
-                } if (!saleStatus) {
-                  return 'paused';
-                }
-                return 'active';
-              })()}
-            </p>
-            {saleStatus ? (
-              <button
-                className={
+          ) : (
+            <button
+              className={
                   classnames(
                     'Button',
                     {
@@ -188,32 +233,14 @@ function PageInfo() {
                     },
                   )
                 }
-                type="button"
-                disabled={!web3State.connected || loadingStatus}
-                onClick={pauseSale}
-              >
-                Pause Sale
-              </button>
-            ) : (
-              <button
-                className={
-                  classnames(
-                    'Button',
-                    {
-                      'Button--disabled': !web3State.connected,
-                      'Button--loading': loadingStatus,
-                    },
-                  )
-                }
-                type="button"
-                disabled={!web3State.connected || loadingStatus}
-                onClick={startSale}
-              >
-                Start Sale
-              </button>
-            )}
-          </div>
-        </>
+              type="button"
+              disabled={!web3State.connected || loadingStatus}
+              onClick={startSale}
+            >
+              Start Sale
+            </button>
+          )}
+        </div>
       )}
       <div className="PageInfo-section">
         {error ? (

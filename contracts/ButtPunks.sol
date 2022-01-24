@@ -63,10 +63,6 @@ contract ButtPunks is ERC721, Ownable, PaymentSplitter {
                 : "";
     }
 
-    function withdraw() public onlyOwner {
-        payable(msg.sender).transfer(address(this).balance);
-    }
-
     function setSaleStatus(bool saleStatus) public onlyOwner {
         saleIsActive = saleStatus;
     }
