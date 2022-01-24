@@ -32,6 +32,7 @@
   display: block;
   padding: 0.5em 0.25em;
   background-color: #ecb7ea;
+  border-radius: 0 0 10px 10px;
 }
 .PageHome-previewVideo {
   display: block;
@@ -45,17 +46,21 @@
   text-align: center;
   min-height: 80vh;
   padding: 0 1em;
+  background-color: rgba(236, 183, 234, 0.93);
 }
 .PageHome-section--butts .PageHome-headline {
   margin-bottom: 0.8em;
 }
-.PageHome-section--butts .PageHome-sectionInner {
-  background-color: rgba(236, 183, 234, 0.98);
-  background-color: #fff;
-  padding: 4em 5em 3em 5em;
-  color: #000;
-  border-radius: 100px;
-  border: 2px solid #000;
+@media only screen and (min-width: 680px) {
+  .PageHome-section--butts {
+    background-color: transparent;
+  }
+  .PageHome-section--butts .PageHome-sectionInner {
+    background-color: #fff;
+    padding: 4em 5em 2em;
+    border-radius: 100px;
+    border: 2px solid #000;
+  }
 }
 .PageHome-section--details {
   background-color: #fff;
