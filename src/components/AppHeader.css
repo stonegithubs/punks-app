@@ -1,21 +1,38 @@
 .AppHeader {
-  /* background-color: #282c34; */
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   /* color: white; */
   color: rgb(12, 12, 13);
   padding: 2em 0;
-  max-width: 1000px;
-  margin: 0 auto;
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  z-index: 1;
 }
 
 .AppHeader-connect {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  margin-top: 2em;
+}
+
+@media only screen and (max-width: 799px) {
+  .AppHeader-connect .AnchorWalletAddress {
+    align-items: center;
+  }
+}
+
+@media only screen and (min-width: 800px) {
+  .AppHeader-connect {
+    text-align: center;
+    margin-top: 0;
+    position: absolute;
+    right: 2em;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 }
 
 .AppHeader-link {

@@ -1,18 +1,74 @@
 .PageHome {
   text-align: left;
 }
-.PageHome-mainImg {
-  margin-bottom: 20px;
+.PageHome-section--intro {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  background-color: #fff;
+  min-height: 90vh;
+  height: 900px;
 }
-.PageHome-section {
-  margin-bottom: 2em;
+.PageHome-section--intro .PageHome-sectionMain {
+  background-color: #fff;
+  margin: 0 auto;
+  max-width: 1000px;
+  padding: 0 1em;
+}
+.PageHome-section--intro .PageHome-blurb {
+  display: block;
+  font-size: 1.5em;
+  font-weight: 700;
+  padding: 0.5em 0.25em;
+}
+.PageHome-previewVideo {
+  display: block;
+  max-width: 100%;
 }
 .PageHome-section--butts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
+  min-height: 80vh;
+  padding: 0 1em;
+}
+.PageHome-section--details {
+  background-color: #fff;
+  padding-bottom: 10em;
+}
+.PageHome-section--details .PageHome-sectionInner {
+  margin: 0 auto;
+  max-width: 1000px;
+  padding: 0 1em;
+}
+.PageHome-sectionImg img {
+  display: block;
+  width: 100%;
+}
+.PageHome-sectionImg--pinata img {
+  min-width: 256px;
+  max-width: 256px;
+  margin: auto;
+}
+.PageHome-section--details .PageHome-sectionImg {
+  margin-bottom: 1em;
+}
+@media only screen and (min-width: 680px) {
+  .PageHome-section--details .PageHome-sectionInner {
+    display: flex;
+  }
+  .PageHome-section--details .PageHome-sectionImg {
+    margin: 0 1em 0 0;
+  }
 }
 .PageHome-headline {
   font-weight: 700;
   font-size: 2.5em;
+  line-height: 1.2em;
+  margin-bottom: 0.5em;
 }
 .PageHome-blurb {
   margin-bottom: 1em;

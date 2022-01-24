@@ -1,5 +1,7 @@
 .AppFooter {
-  padding: 3em 0 1em;
+  position: relative;
+  background-color: #fff;
+  padding: 3em 1em 2em;
 }
 .AppFooter p {
   font-size: 14px;
