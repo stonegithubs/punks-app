@@ -48,8 +48,10 @@ function PageHome() {
         </div>
       </div>
       <div className="PageHome-section PageHome-section--butts">
-        <h2 className="PageHome-headline">Mint Some Butts!</h2>
-        <SectionMint />
+        <div className="PageHome-sectionInner">
+          <h2 className="PageHome-headline">Mint Some Butts!</h2>
+          <SectionMint />
+        </div>
       </div>
     </div>
   );

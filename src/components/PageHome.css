@@ -1,6 +1,19 @@
 .PageHome {
   text-align: left;
 }
+.PageHome-headline {
+  font-weight: 700;
+  font-size: 2.5em;
+  line-height: 1.2em;
+  margin-bottom: 0.5em;
+}
+.PageHome-blurb {
+  margin-bottom: 1em;
+}
+.PageHome-section:last-child,
+.PageHome-blurb:last-child {
+  margin-bottom: 0;
+}
 .PageHome-section--intro {
   display: flex;
   flex-direction: column;
@@ -17,9 +30,8 @@
 }
 .PageHome-section--intro .PageHome-blurb {
   display: block;
-  font-size: 1.5em;
-  font-weight: 700;
   padding: 0.5em 0.25em;
+  background-color: #ecb7ea;
 }
 .PageHome-previewVideo {
   display: block;
@@ -33,6 +45,17 @@
   text-align: center;
   min-height: 80vh;
   padding: 0 1em;
+}
+.PageHome-section--butts .PageHome-headline {
+  margin-bottom: 0.8em;
+}
+.PageHome-section--butts .PageHome-sectionInner {
+  background-color: rgba(236, 183, 234, 0.98);
+  background-color: #fff;
+  padding: 4em 5em 3em 5em;
+  color: #000;
+  border-radius: 100px;
+  border: 2px solid #000;
 }
 .PageHome-section--details {
   background-color: #fff;
@@ -68,17 +91,4 @@
   .PageHome-section--details .PageHome-sectionImg {
     margin: 0 1em 0 0;
   }
-}
-.PageHome-headline {
-  font-weight: 700;
-  font-size: 2.5em;
-  line-height: 1.2em;
-  margin-bottom: 0.5em;
-}
-.PageHome-blurb {
-  margin-bottom: 1em;
-}
-.PageHome-section:last-child,
-.PageHome-blurb:last-child {
-  margin-bottom: 0;
 }
