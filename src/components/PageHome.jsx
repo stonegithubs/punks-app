@@ -50,9 +50,9 @@ function PageHome() {
               but the tldr is that it&apos;s impossible for us to change the contents!
             </p>
             <p className="PageHome-blurb">
-              Ready to dive in? Mint a few butts below and/or trade them
+              Ready to dive in? Mint a few butts below and/or trade them on
               {' '}
-              <a href="https://testnets.opensea.io/collection/buttpunks" target="_blank" rel="noreferrer">on OpenSea</a>
+              <a href="https://testnets.opensea.io/collection/buttpunks" target="_blank" rel="noreferrer">OpenSea</a>
               !
             </p>
           </div>
