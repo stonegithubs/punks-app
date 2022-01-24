@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import Blockies from 'react-blockies';
 import AnchorAddress from './AnchorAddress';
 import { useWeb3Context, web3Disconnect } from '../context/Web3Context';
 import supportedChains from '../data/supportedChains';
@@ -22,22 +23,31 @@ function AnchorWalletAddress({ className }) {
   }
   return (
     <div className={classnames('AnchorWalletAddress', className)}>
-      <span className="AnchorWalletAddress-chain">
-        {(selectedChain && selectedChain.name) || 'Unknown Chain'}
-      </span>
-      <AnchorAddress
-        className="AnchorWalletAddress-address"
-        chainId={web3State.chainId}
-        address={web3State.address}
-      />
-      <button
-        className="AnchorWalletAddress-disconnect ButtonText"
-        disabled={loadingConnection}
-        type="button"
-        onClick={disconnect}
-      >
-        disconnect wallet
-      </button>
+      <div className="AnchorWalletAddress-inner">
+        <Blockies
+          seed={web3State.address.toLowerCase()}
+          scale="9"
+          className="AnchorWalletAddress-identicon"
+        />
+        <div className="AnchorWalletAddress-info">
+          <span className="AnchorWalletAddress-chain">
+            {(selectedChain && selectedChain.name) || `Chain ${web3State.chainId}`}
+          </span>
+          <AnchorAddress
+            className="AnchorWalletAddress-address"
+            chainId={web3State.chainId}
+            address={web3State.address}
+          />
+          <button
+            className="AnchorWalletAddress-disconnect ButtonText"
+            disabled={loadingConnection}
+            type="button"
+            onClick={disconnect}
+          >
+            disconnect wallet
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

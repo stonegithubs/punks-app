@@ -28,7 +28,6 @@ function SectionMint() {
     if (!web3State.connected) {
       return;
     }
-    const selectedChain = supportedChains.find((chain) => chain.chain_id === web3State.chainId);
     const isProd = false && process.env.NODE_ENV !== 'development'; // TODO: UPDATE WHEN WE GO LIVE FOR REAL
     const isWrongChain = (isProd && web3State.chainId !== 1)
       || (!isProd && !web3State.buttpunkContractAddress);
@@ -36,7 +35,7 @@ function SectionMint() {
       ? supportedChains.find((chain) => chain.network === 'mainnet')
       : supportedChains.find((chain) => chain.network === 'rinkeby');
     if (isWrongChain) {
-      setError(`You are currently connected to ${(selectedChain && selectedChain.name) || `chain ${web3State.chainId}`}. Change your wallet chain to ${targetChain.name} to mint butts.`);
+      setError(`Your wallet is currently connected to the wrong chain. Please connect to ${targetChain.name} to mint butts.`);
       return;
     }
     setError(null);
@@ -80,6 +79,12 @@ function SectionMint() {
     <div className="SectionMint">
       {web3State.buttpunkContractAddress ? (
         <>
+          <div className="SectionMint-section">
+            <span className="SectionMint-sectionHeadline">
+              wallet:
+            </span>
+            <AnchorWalletAddress />
+          </div>
           <div className="SectionMint-section">
             <h2 className="SectionMint-sectionHeadline">smart contract: </h2>
             <AnchorAddress
@@ -143,7 +148,7 @@ function SectionMint() {
       )}
       <div className="SectionMint-section">
         {error ? (
-          <p style={{ fontSize: '12px', color: 'red' }}>
+          <p className="SectionMint-message SectionMint-message--error">
             {`Error${
               error.code ? ` ${error.code}` : ''
             }: ${error.message || error}`}
@@ -153,7 +158,7 @@ function SectionMint() {
           ''
         )}
         {success ? (
-          <p style={{ fontSize: '12px', color: 'green' }}>{success}</p>
+          <p className="SectionMint-message SectionMint-message--success">{success}</p>
         ) : (
           ''
         )}

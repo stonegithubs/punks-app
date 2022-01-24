@@ -59,3 +59,15 @@
   outline: 0;
   font-weight: 700;
 }
+.SectionMint-message {
+  display: block;
+  font-size: 12px;
+  max-width: 40em;
+  margin: 0 auto;
+}
+.SectionMint-message--error {
+  color: red;
+}
+.SectionMint-message--success {
+  color: green;
+}
