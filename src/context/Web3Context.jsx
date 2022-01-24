@@ -29,7 +29,6 @@ export const ACTIONS = {
   DISCONNECTED: 'WEB3_DISCONNECTED',
   EVENT_ACCOUNTS_CHANGE: 'WEB3_EVENT_ACCOUNTS_CHANGE',
   EVENT_CHAIN_CHANGE: 'WEB3_EVENT_CHAIN_CHANGE',
-  EVENT_NETWORK_CHANGE: 'WEB3_EVENT_NETWORK_CHANGE',
 };
 export async function web3Connect() {
   const { web3, provider } = await connect();
@@ -73,7 +72,7 @@ export async function web3HandlerChainChange(web3) {
     ButtPunkSmartContract.abi,
     buttpunkContractAddress,
   );
-  return [ACTIONS.EVENT_NETWORK_CHANGE, {
+  return [ACTIONS.EVENT_CHAIN_CHANGE, {
     chainId,
     networkId,
     buttpunkContractAddress,

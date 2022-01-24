@@ -47,7 +47,12 @@ function SectionMint() {
         console.error(err);
       }
     })();
-  }, [web3State]);
+  }, [
+    web3State.connected,
+    web3State.chainId,
+    web3State.buttpunkContract,
+    web3State.buttpunkContractAddress,
+  ]);
 
   // request access to the user's MetaMask account
 
