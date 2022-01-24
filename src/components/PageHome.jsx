@@ -23,7 +23,7 @@ function PageHome() {
       <div className="PageHome-section PageHome-section--details">
         <div className="PageHome-sectionInner">
           <a
-            className="PageHome-sectionImg PageHome-sectionImg--pinata"
+            className="PageHome-sectionImg PageHome-sectionImg--preview"
             href="https://testnets.opensea.io/collection/buttpunks"
             target="_blank"
             rel="noreferrer"
