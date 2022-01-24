@@ -12,13 +12,14 @@
   display: block;
   position: absolute;
   top: 0;
-  right: -400vh;
+  right: -200vw;
   bottom: 0;
   left: 0%;
+  background-attachment: fixed;
   background-image: url("../images/Skin-5.png");
   background-size: auto 100%;
   background-repeat: repeat-x;
-  background-position: 50% 50%;
+  background-position: 0 0;
   animation-name: bg-scroll;
   animation-duration: 5s;
   animation-iteration-count: infinite;
@@ -32,10 +33,12 @@
 }
 @keyframes bg-scroll {
   from {
-    transform: translateX(0);
+    /* transform: translateX(0); */
+    background-position: 0vw 0;
   }
   to {
-    transform: translateX(-100vh);
+    /* transform: translateX(-100vw); */
+    background-position: -100vh 0;
   }
 }
 

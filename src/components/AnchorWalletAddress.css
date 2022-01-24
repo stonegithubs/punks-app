@@ -1,0 +1,22 @@
+.AnchorWalletAddress {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+.AnchorWalletAddress-chain {
+  display: block;
+  font-weight: 700;
+}
+.AnchorWalletAddress-address {
+  display: block;
+  font-weight: 300;
+}
+.AnchorWalletAddress-disconnect {
+  display: block;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 0.667em;
+  margin-top: 0.333em;
+  letter-spacing: 0.12em;
+}

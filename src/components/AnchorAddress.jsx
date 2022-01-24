@@ -8,11 +8,17 @@ import './AnchorAddress.css';
 
 function AnchorAddress({ chainId, address, className }) {
   const selectedChain = supportedChains.find((chain) => chain.chain_id === chainId);
-  const url = chainId === 1 ? 'https://etherscan.io' : `https://${selectedChain.network}.etherscan.io`;
+  if (!selectedChain) {
+    return (
+      <span className={classnames('AnchorAddress', 'AnchorAddress--label', className)}>
+        {prettyAddress(address)}
+      </span>
+    );
+  }
   return (
     <a
-      className={classnames('AnchorAddress', 'AnchorText', className)}
-      href={`${url}/address/${address}`}
+      className={classnames('AnchorAddress', 'AnchorAddress--anchor', 'AnchorText', className)}
+      href={`${selectedChain.scanner_url}/address/${address}`}
       target="_blank"
       rel="noreferrer"
     >

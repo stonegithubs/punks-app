@@ -2,12 +2,17 @@ import './PageHome.css';
 import React from 'react';
 import { useWeb3Context } from '../context/Web3Context';
 import AnchorAddress from './AnchorAddress';
+import SectionMint from './SectionMint';
 import GridImgSrc from '../images/grid.jpg';
 
 function PageHome() {
   const { web3State } = useWeb3Context();
   return (
     <div className="PageHome">
+      <div className="PageHome-section PageHome-section--butts">
+        <h2 className="PageHome-headline">Mint Some Butts!</h2>
+        <SectionMint />
+      </div>
       <div className="PageHome-section">
         <img className="PageHome-mainImg" src={GridImgSrc} alt="A sample grid of ButtPunks" />
         <p className="PageHome-blurb">

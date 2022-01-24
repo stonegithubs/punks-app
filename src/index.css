@@ -8,7 +8,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #fff;
-  font-size: 18px;
+  font-size: 16px;
+  letter-spacing: 0.05em;
   overflow-y: scroll;
   overflow-x: hidden;
 }
@@ -23,7 +24,7 @@ code {
   cursor: pointer;
   background-color: transparent;
   border: transparent;
-  font-weight: bold;
+  font-weight: 700;
   color: #000;
   text-decoration: none;
 }
@@ -37,16 +38,17 @@ code {
   position: relative;
   display: inline-block;
   cursor: pointer;
-  font-size: 18px;
   color: #fff;
   background-color: #111;
   transition: background 0.2s ease 0s;
-  font-weight: bold;
   padding: 0.5em 26px;
   border-radius: 54px;
   height: 54px;
   overflow: hidden;
   border: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-weight: 700;
 }
 .Button::after {
   content: "";
@@ -100,7 +102,7 @@ code {
   cursor: pointer;
   background-color: transparent;
   border: transparent;
-  font-weight: bold;
+  font-weight: 700;
 }
 .ButtonText:focus,
 .ButtonText:hover {

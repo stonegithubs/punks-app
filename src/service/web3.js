@@ -10,7 +10,7 @@ export const BUTTPUNK_CONTRACT_MAP = {
   4: '0xF5f4A9FB11C56E2663d644bD64C690C58c4c9656', // rinkeby
   5: '', // goerli
   42: '', // kavan
-  1337: '0x5fbdb2315678afecb367f032d93f642f64180aa3', // localhost
+  1337: '0x5FbDB2315678afecb367f032d93F642f64180aa3', // localhost
 };
 
 export const WEB3_MODAL = new Web3Modal({

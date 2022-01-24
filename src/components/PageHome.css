@@ -7,8 +7,12 @@
 .PageHome-section {
   margin-bottom: 2em;
 }
+.PageHome-section--butts {
+  text-align: center;
+}
 .PageHome-headline {
-  margin-bottom: 1em;
+  font-weight: 700;
+  font-size: 2.5em;
 }
 .PageHome-blurb {
   margin-bottom: 1em;

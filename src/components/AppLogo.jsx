@@ -8,6 +8,7 @@ function AppLogo({ className }) {
     <div className={classnames('AppLogo', className)}>
       <span className="AppLogo-abbr">BUTT</span>
       <h1 className="AppLogo-title">ButtPunks</h1>
+      <p className="AppLogo-tagline">Let&apos;s fighting love!</p>
     </div>
   );
 }

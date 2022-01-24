@@ -4,7 +4,6 @@ import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import AppHeader from './AppHeader';
 import AppFooter from './AppFooter';
 import PageHome from './PageHome';
-import PageMint from './PageMint';
 import PageInfo from './PageInfo';
 import PageTerms from './PageTerms';
 
@@ -20,11 +19,6 @@ function App() {
                 exact
                 path="/"
                 element={<PageHome />}
-              />
-              <Route
-                exact
-                path="/mint"
-                element={<PageMint />}
               />
               <Route
                 exact
