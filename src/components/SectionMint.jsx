@@ -4,8 +4,9 @@ import classnames from 'classnames';
 import Web3 from 'web3';
 import supportedChains from '../data/supportedChains';
 import { useWeb3Context } from '../context/Web3Context';
-import ButtonConnect from './ButtonConnect';
 import AnchorAddress from './AnchorAddress';
+import ButtonConnect from './ButtonConnect';
+import AnchorWalletAddress from './AnchorWalletAddress';
 
 const TOKEN_PRICE = 0.0001; // in eth
 
@@ -128,7 +129,9 @@ function SectionMint() {
           <p className="SectionMint-headline">Connect to the Ethereum network to mint tokens.</p>
           {!web3State.connected ? (
             <ButtonConnect className="SectionMint-connect" />
-          ) : ''}
+          ) : (
+            <AnchorWalletAddress />
+          )}
         </div>
       )}
       <div className="SectionMint-section">

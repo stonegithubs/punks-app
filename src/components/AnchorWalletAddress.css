@@ -1,8 +1,8 @@
 .AnchorWalletAddress {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: center;
 }
 .AnchorWalletAddress-chain {
   display: block;

@@ -149,7 +149,7 @@ export function Web3Provider({
     return () => {
       // TODO: figure out how to clean up (web3State.provider.off didn't work)
     };
-  }, [web3State.provider, web3State.web3]);
+  }, [web3State.provider, web3State.web3, web3Dispatch]);
 
   return (
     <Web3Context.Provider value={providerValue}>
