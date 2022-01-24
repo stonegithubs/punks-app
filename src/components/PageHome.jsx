@@ -2,7 +2,7 @@ import './PageHome.css';
 import React from 'react';
 import AnchorAddress from './AnchorAddress';
 import SectionMint from './SectionMint';
-import PinataImgSrc from '../media/pinata.png';
+import ButtPreviewImgSrc from '../media/butt-preview.gif';
 import PreviewVideoSrc from '../media/preview.mp4';
 import { BUTTPUNK_CONTRACT_MAP } from '../service/web3';
 
@@ -22,9 +22,14 @@ function PageHome() {
       </div>
       <div className="PageHome-section PageHome-section--details">
         <div className="PageHome-sectionInner">
-          <div className="PageHome-sectionImg PageHome-sectionImg--pinata">
-            <img src={PinataImgSrc} alt="Pinata Logo" />
-          </div>
+          <a
+            className="PageHome-sectionImg PageHome-sectionImg--pinata"
+            href="https://testnets.opensea.io/collection/buttpunks"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <img src={ButtPreviewImgSrc} alt="A preview of a few ButtPunks" />
+          </a>
           <div className="PageHome-sectionMain">
             <h2 className="PageHome-headline">Give me the deets!</h2>
             <p className="PageHome-blurb">
@@ -43,6 +48,12 @@ function PageHome() {
               <a href="https://docs.pinata.cloud/nfts" target="_blank" rel="noreferrer">the Pinata website</a>
               {' '}
               but the tldr is that it&apos;s impossible for us to change the contents!
+            </p>
+            <p className="PageHome-blurb">
+              Ready to dive in? Mint a few butts below and/or trade them
+              {' '}
+              <a href="https://testnets.opensea.io/collection/buttpunks" target="_blank" rel="noreferrer">on OpenSea</a>
+              !
             </p>
           </div>
         </div>
