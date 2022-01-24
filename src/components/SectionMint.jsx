@@ -28,7 +28,7 @@ function SectionMint() {
       return;
     }
     const selectedChain = supportedChains.find((chain) => chain.chain_id === web3State.chainId);
-    if (process.env.NODE_ENV === 'development' && (!web3State.buttpunkContract)) {
+    if (process.env.NODE_ENV === 'development' && (!web3State.buttpunkContractAddress)) {
       setError(`You are currently connected to ${(selectedChain && selectedChain.name) || `chain ${web3State.chainId}`}. Change your wallet chain to Ethereum to mint butts.`);
       return;
     }
@@ -126,7 +126,9 @@ function SectionMint() {
       ) : (
         <div className="SectionMint-section">
           <p className="SectionMint-headline">Connect to the Ethereum network to mint tokens.</p>
-          <ButtonConnect className="SectionMint-connect" />
+          {!web3State.connected ? (
+            <ButtonConnect className="SectionMint-connect" />
+          ) : ''}
         </div>
       )}
       <div className="SectionMint-section">
