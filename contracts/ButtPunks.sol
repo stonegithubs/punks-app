@@ -5,7 +5,6 @@ pragma solidity ^0.8.0;
 import "hardhat/console.sol";
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-// import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
@@ -18,24 +17,22 @@ contract ButtPunks is ERC721, Ownable, PaymentSplitter {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
 
-    uint256 public constant RESERVED_TOKENS = 30;
-    uint256 public constant MAX_SUPPLY = 100;
+    uint256 public constant MAX_SUPPLY = 10000;
     uint256 public constant MAX_PURCHASE = 20;
     uint256 public constant TOKEN_PRICE = 0.0001 ether;
     address[] private ADDRESS_LIST = [
         0xD1aDe89F8826d122F0a3Ab953Bc293E144042539,
         0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
     ];
-    uint256[] private SHARE_LIST = [95, 5];
+    uint256[] private SHARE_LIST = [50, 50];
 
-    uint256 public revealTimestamp;
     bool public saleIsActive = false;
 
     constructor()
         ERC721("ButtPunks", "BUTTS")
         PaymentSplitter(ADDRESS_LIST, SHARE_LIST)
     {
-        reserveTokens();
+        setSaleStatus(true);
     }
 
     function _baseURI() internal pure override returns (string memory) {
@@ -70,25 +67,11 @@ contract ButtPunks is ERC721, Ownable, PaymentSplitter {
         payable(msg.sender).transfer(address(this).balance);
     }
 
-    function reserveTokens() public onlyOwner {
-        uint256 i;
-        for (i = 0; i < RESERVED_TOKENS; i++) {
-            _tokenIds.increment();
-            uint256 newItemId = _tokenIds.current();
-            _safeMint(msg.sender, newItemId);
-        }
+    function setSaleStatus(bool saleStatus) public onlyOwner {
+        saleIsActive = saleStatus;
     }
 
-    function startSale(uint256 revealTimeStamp) public onlyOwner {
-        saleIsActive = true;
-        revealTimestamp = revealTimeStamp;
-    }
-
-    function pauseSale() public onlyOwner {
-        saleIsActive = false;
-    }
-
-    function saleStatus() public view returns (bool) {
+    function getSaleStatus() public view returns (bool) {
         return saleIsActive;
     }
 
