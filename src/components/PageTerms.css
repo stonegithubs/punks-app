@@ -1,5 +1,15 @@
 .PageTerms {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
   text-align: left;
+  background-color: #fff;
+}
+.PageTerms-inner {
+  max-width: 1000px;
+  padding: 2em 1em;
+  margin: 0 auto;
 }
 .PageTerms-section {
   margin-bottom: 2em;
