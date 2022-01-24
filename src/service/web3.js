@@ -6,11 +6,11 @@ const INFURA_ID = '6ae4bfa571f34170800e16cf72824270'; // process.env.INFRA_ID;
 
 export const BUTTPUNK_CONTRACT_MAP = {
   1: '', // mainnet
-  3: '0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9', // ropsten
-  4: '0xF5f4A9FB11C56E2663d644bD64C690C58c4c9656', // rinkeby
+  3: '0x0562DB77A1EE69331e950e349C51365a60E4003D', // ropsten
+  4: '0x0cf1b2021721eacF33Bea056664f8018136b6105', // rinkeby
   5: '', // goerli
   42: '', // kavan
-  1337: '0x0165878A594ca255338adfa4d48449f69242Eb8F', // localhost
+  1337: '0xA51c1fc2f0D1a1b8494Ed1FE312d7C3a78Ed91C0', // localhost
 };
 
 export const WEB3_MODAL = new Web3Modal({
