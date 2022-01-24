@@ -25,6 +25,7 @@
 .PageHome-section--intro .PageHome-sectionMain {
   background-color: #fff;
   margin: 0 auto;
+  width: 100%;
   max-width: 1000px;
   padding: 0 1em;
 }
@@ -36,8 +37,11 @@
 }
 .PageHome-previewVideo {
   display: block;
+  aspect-ratio: 1.7777777778;
+  width: 100%;
   max-width: 100%;
   border-radius: 10px 10px 0 0;
+  background-color: #1e1e1e;
 }
 .PageHome-section--butts {
   display: flex;
