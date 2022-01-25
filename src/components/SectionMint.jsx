@@ -1,4 +1,3 @@
-import './SectionMint.css';
 import React, { useCallback, useEffect, useState } from 'react';
 import classnames from 'classnames';
 import Web3 from 'web3';
@@ -7,6 +6,8 @@ import { useWeb3Context } from '../context/Web3Context';
 import AnchorAddress from './AnchorAddress';
 import ButtonConnect from './ButtonConnect';
 import AnchorWalletAddress from './AnchorWalletAddress';
+
+import './SectionMint.css';
 
 const TOKEN_PRICE = 0.0001; // in eth
 
@@ -25,6 +26,7 @@ function SectionMint() {
   // Math.round cause of javascript dumbness -- round to 18th decimal cause that's what eth allows
   const ethPrice = Math.round(TOKEN_PRICE * numTokens * 1000000000000000000) / 1000000000000000000;
   useEffect(() => {
+    setError(null);
     if (!web3State.connected) {
       return;
     }
@@ -137,7 +139,7 @@ function SectionMint() {
           </div>
         </>
       ) : (
-        <div className="SectionMint-section">
+        <div className="SectionMint-section SectionMint-section--connect">
           <p className="SectionMint-headline">Connect to the Ethereum network to mint tokens.</p>
           {!web3State.connected ? (
             <ButtonConnect className="SectionMint-connect" />
@@ -146,23 +148,27 @@ function SectionMint() {
           )}
         </div>
       )}
-      <div className="SectionMint-section">
-        {error ? (
-          <p className="SectionMint-message SectionMint-message--error">
-            {`Error${
-              error.code ? ` ${error.code}` : ''
-            }: ${error.message || error}`}
+      {error || success ? (
+        <div className="SectionMint-section SectionMint-section--messages">
+          {error ? (
+            <p className="SectionMint-message SectionMint-message--error">
+              {`Error${
+                error.code ? ` ${error.code}` : ''
+              }: ${error.message || error}`}
 
-          </p>
-        ) : (
-          ''
-        )}
-        {success ? (
-          <p className="SectionMint-message SectionMint-message--success">{success}</p>
-        ) : (
-          ''
-        )}
-      </div>
+            </p>
+          ) : (
+            ''
+          )}
+          {success ? (
+            <p className="SectionMint-message SectionMint-message--success">{success}</p>
+          ) : (
+            ''
+          )}
+        </div>
+      ) : (
+        ''
+      )}
     </div>
   );
 }
