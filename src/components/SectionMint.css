@@ -11,12 +11,19 @@
   margin-bottom: 1em;
 }
 .SectionMint-section {
-  margin-bottom: 1em;
+  margin-bottom: 3em;
 }
 .SectionMint-sectionHeadline {
   display: block;
-  font-size: 16px;
+  font-size: 0.8em;
   font-weight: 300;
+  font-family: "Press Start 2P";
+  text-transform: uppercase;
+  margin-bottom: 0.6em;
+}
+.SectionMint-inputNoteWrapper {
+  position: relative;
+  display: inline-block;
 }
 .SectionMint-value {
   font-size: 1.5em;
@@ -26,7 +33,7 @@
   display: inline-block;
 }
 .SectionMint-inputLabel .SectionMint-sectionHeadline {
-  margin-bottom: 0.5em;
+  margin-bottom: 1.25em;
 }
 .SectionMint-inputNote {
   position: absolute;
@@ -39,7 +46,7 @@
 .SectionMint-inputNote::before {
   content: "x";
   font-weight: 300;
-  margin: 0 0.333em 0 0.2em;
+  margin: 0 0.333em 0 0.5em;
 }
 .SectionMint-confirm {
   margin-top: 1.8em;

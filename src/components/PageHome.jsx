@@ -15,7 +15,7 @@ function PageHome() {
             <source src={PreviewVideoSrc} />
           </video>
           <p className="PageHome-blurb">
-            What&apos;s better than one punk? How about two of them smashed together and
+            What&apos;s better than one punk? How about two of &apos;em smashed together and
             then decorated with nine unique traits!
           </p>
         </div>
@@ -31,7 +31,7 @@ function PageHome() {
             <img src={ButtPreviewImgSrc} alt="A preview of a few ButtPunks" />
           </a>
           <div className="PageHome-sectionMain">
-            <h2 className="PageHome-headline">Give me the deets!</h2>
+            <h2 className="PageHome-headline">Give me the deets</h2>
             <p className="PageHome-blurb">
               ButtPunks is a limited collection of 10,000 unique NFT butts living on
               the Ethereum blockchain. Each butt is made unique by randomly generating a
@@ -60,7 +60,7 @@ function PageHome() {
       </div>
       <div className="PageHome-section PageHome-section--butts">
         <div className="PageHome-sectionInner">
-          <h2 className="PageHome-headline">Mint Some Butts!</h2>
+          <h2 className="PageHome-headline">Mint Some Butts</h2>
           <SectionMint />
         </div>
       </div>

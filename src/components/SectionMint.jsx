@@ -79,13 +79,13 @@ function SectionMint() {
     <div className="SectionMint">
       {web3State.buttpunkContractAddress ? (
         <>
-          <div className="SectionMint-section">
+          <div className="SectionMint-section SectionMint-section--wallet">
             <span className="SectionMint-sectionHeadline">
               wallet:
             </span>
             <AnchorWalletAddress />
           </div>
-          <div className="SectionMint-section">
+          <div className="SectionMint-section SectionMint-section--contract">
             <h2 className="SectionMint-sectionHeadline">smart contract: </h2>
             <AnchorAddress
               className="SectionMint-value"
@@ -93,12 +93,12 @@ function SectionMint() {
               address={web3State.buttpunkContractAddress}
             />
           </div>
-          <div className="SectionMint-section">
-            <div className="SectionMint-section">
-              <label className="SectionMint-inputLabel" htmlFor="token-quantity">
-                <span className="SectionMint-sectionHeadline">
-                  qty of butts:
-                </span>
+          <div className="SectionMint-section SectionMint-section--qty">
+            <label className="SectionMint-inputLabel" htmlFor="token-quantity">
+              <span className="SectionMint-sectionHeadline">
+                qty of butts:
+              </span>
+              <div className="SectionMint-inputNoteWrapper">
                 <input
                   id="token-quantity"
                   className="SectionMint-input SectionMint-value"
@@ -113,10 +113,10 @@ function SectionMint() {
                   {TOKEN_PRICE}
                   Ξ
                 </p>
-              </label>
-            </div>
+              </div>
+            </label>
           </div>
-          <div className="SectionMint-section">
+          <div className="SectionMint-section SectionMint-section--confirm">
             <button
               className={
                 classnames(
@@ -132,7 +132,7 @@ function SectionMint() {
               disabled={loading || !saleStatus || !web3State.connected}
               onClick={mintToken}
             >
-              Confirm
+              Confirm Butts
             </button>
           </div>
         </>

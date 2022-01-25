@@ -15,9 +15,16 @@
   min-width: 6em;
   display: block;
 }
-
 .AppHeader-logo {
   text-decoration: none;
+  max-width: 600px;
+  background-color: #fff;
+  /* border-radius: 10px; */
+  padding: 5px 10px;
+}
+.AppHeader-logoImg {
+  display: block;
+  position: relative;
 }
 .AppHeader-logo .AppLogo-title {
   backface-visibility: hidden;
