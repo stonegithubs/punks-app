@@ -23,6 +23,9 @@
   background-color: #fff;
   padding: 5vh 0 10vh;
 }
+.PageHome-section--intro .SectionMint {
+  margin-top: 3em;
+}
 .PageHome-section--intro .PageHome-sectionMain {
   position: relative;
   margin: 0 auto;
@@ -42,6 +45,76 @@
 @media only screen and (max-width: 680px) {
   .PageHome-section--intro .PageHome-blurb {
     font-size: 0.8em;
+  }
+}
+.PageHome-section--intro .PageHome-sectionMainInner {
+  position: relative;
+}
+.PageHome-section--intro .PageHome-sectionMainInner::before,
+.PageHome-section--intro .PageHome-sectionMainInner::after,
+.PageHome-section--intro .SectionMint--connected::after {
+  content: "";
+  z-index: 1;
+  display: block;
+  position: absolute;
+  font-family: "Press Start 2P";
+  color: #000;
+  animation-name: dumb-text;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-direction: alternate-reverse;
+  backface-visibility: hidden;
+}
+.PageHome-section--intro .PageHome-sectionMainInner::before {
+  content: "SO COOL!";
+  right: 0%;
+  top: 0%;
+  font-size: 40px;
+  transform: translate(40%) rotate(16deg);
+  animation-name: dumb-text-1;
+  animation-duration: 1.324s;
+}
+.PageHome-section--intro .PageHome-sectionMainInner::after {
+  content: "WOW!";
+  left: 0%;
+  bottom: 20%;
+  font-size: 80px;
+  transform: translate(-40%) rotate(-16deg);
+  animation-name: dumb-text-2;
+  animation-duration: 1s;
+}
+.PageHome-section--intro .SectionMint {
+  position: relative;
+}
+.PageHome-section--intro .SectionMint--connected::after {
+  content: "d(0_0)b";
+  right: 10%;
+  bottom: 25%;
+  font-size: 20px;
+  transform: translate(40%) rotate(16deg);
+  animation-name: dumb-text-1;
+  animation-duration: 0.2s;
+}
+@media (prefers-reduced-motion) {
+  .PageHome-section--intro .PageHome-sectionMainInner::before {
+    animation: none;
+  }
+}
+@keyframes dumb-text-1 {
+  from {
+    transform: translate(40%) rotate(16deg) scale(1);
+  }
+  to {
+    transform: translate(40%) rotate(20deg) scale(1.25);
+  }
+}
+@keyframes dumb-text-2 {
+  from {
+    transform: translate(-40%) rotate(-16deg) scale(1);
+  }
+  to {
+    transform: translate(-40%) rotate(-18deg) scale(1.2);
   }
 }
 .PageHome-previewVideo {
@@ -76,7 +149,7 @@
     max-width: 1000px;
     min-width: 680px;
   }
-  .PageHome-section--butts .PageHome-sectionInner::after {
+  .PageHome-section--butts .PageHome-sectionInner::before {
     content: "SO COOL!";
     display: block;
     position: absolute;
@@ -96,7 +169,7 @@
   }
 }
 @media (prefers-reduced-motion) {
-  .PageHome-section--details::before {
+  .PageHome-section--butts .PageHome-sectionInner::before {
     animation: none;
   }
 }
@@ -112,7 +185,7 @@
   position: relative;
   background-color: #fff;
   padding: 5em 0;
-  background-color: #654321;
+  background-color: #6f1cc2;
   color: #fff;
 }
 .PageHome-section--details .PageHome-sectionMain {

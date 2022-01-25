@@ -78,7 +78,7 @@ function SectionMint() {
   }, [numTokens, web3State, ethPrice]);
 
   return (
-    <div className="SectionMint">
+    <div className={classnames('SectionMint', { 'SectionMint--connected': web3State.connected })}>
       {web3State.buttpunkContractAddress ? (
         <>
           <div className="SectionMint-section SectionMint-section--wallet">

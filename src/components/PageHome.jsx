@@ -11,13 +11,15 @@ function PageHome() {
     <div className="PageHome">
       <div className="PageHome-section PageHome-section--intro">
         <div className="PageHome-sectionMain">
-          <video className="PageHome-previewVideo" muted autoPlay loop>
-            <source src={PreviewVideoSrc} />
-          </video>
-          <p className="PageHome-blurb">
-            What&apos;s better than one punk? How about two of &apos;em smashed together and
-            then decorated with nine unique traits!
-          </p>
+          <div className="PageHome-sectionMainInner">
+            <video className="PageHome-previewVideo" muted autoPlay loop>
+              <source src={PreviewVideoSrc} />
+            </video>
+            <p className="PageHome-blurb">
+              Diversify your ASSets!
+            </p>
+          </div>
+          <SectionMint />
         </div>
       </div>
       <div className="PageHome-section PageHome-section--details">
@@ -56,12 +58,6 @@ function PageHome() {
               !
             </p>
           </div>
-        </div>
-      </div>
-      <div className="PageHome-section PageHome-section--butts">
-        <div className="PageHome-sectionInner">
-          <h2 className="PageHome-headline">Mint Some Butts</h2>
-          <SectionMint />
         </div>
       </div>
     </div>
