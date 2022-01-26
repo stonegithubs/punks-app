@@ -36,8 +36,8 @@ function PageHome() {
             <h2 className="PageHome-headline">Give me the deets</h2>
             <p className="PageHome-blurb">
               ButtPunks is a limited collection of 10,000 unique NFT butts living on
-              the Ethereum blockchain. Each butt is made unique by randomly generating a
-              combination of nine traits from a collection of over 50 of them.
+              the Ethereum blockchain. Each butt is uniquely crafted by combining
+              nine traits from a collection of over 100 assets!
             </p>
             <p className="PageHome-blurb">
               Each butt and its metadata is stored on IPFS via Pinata
