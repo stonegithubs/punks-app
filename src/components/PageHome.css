@@ -89,15 +89,36 @@
 }
 .PageHome-section--intro .SectionMint--connected::after {
   content: "d(0_0)b";
-  right: 10%;
-  bottom: 25%;
+  right: 12%;
+  bottom: 18%;
   font-size: 20px;
   transform: translate(40%) rotate(16deg);
   animation-name: dumb-text-1;
   animation-duration: 0.2s;
 }
-@media (prefers-reduced-motion) {
+@media only screen and (max-width: 1220px) {
+  .PageHome-section--intro .PageHome-sectionMainInner::before,
+  .PageHome-section--intro .PageHome-sectionMainInner::after,
+  .PageHome-section--intro .SectionMint--connected::after {
+    font-size: 20px;
+  }
   .PageHome-section--intro .PageHome-sectionMainInner::before {
+    display: none;
+  }
+  .PageHome-section--intro .PageHome-sectionMainInner::after {
+    top: -2%;
+    bottom: initial;
+    left: 8%;
+  }
+  .PageHome-section--intro .SectionMint--connected::after {
+    bottom: 12%;
+    right: 10%;
+  }
+}
+@media (prefers-reduced-motion) {
+  .PageHome-section--intro .PageHome-sectionMainInner::before,
+  .PageHome-section--intro .PageHome-sectionMainInner::after,
+  .PageHome-section--intro .SectionMint--connected::after {
     animation: none;
   }
 }
@@ -124,62 +145,6 @@
   width: 100%;
   max-width: 100%;
   border-radius: 10px 10px 0 0;
-}
-.PageHome-section--butts {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  min-height: 80vh;
-  padding: 0 1em;
-  background-color: rgba(236, 183, 234, 0.93);
-}
-@media only screen and (min-width: 680px) {
-  .PageHome-section--butts {
-    background-color: transparent;
-  }
-  .PageHome-section--butts .PageHome-sectionInner {
-    position: relative;
-    background-color: #fff;
-    padding: 5em 1em 4em;
-    border-radius: 10px;
-    border: 2px solid #000;
-    margin: 0 auto;
-    max-width: 1000px;
-    min-width: 680px;
-  }
-  .PageHome-section--butts .PageHome-sectionInner::before {
-    content: "SO COOL!";
-    display: block;
-    position: absolute;
-    right: 0%;
-    top: 0%;
-    font-family: "Press Start 2P";
-    color: #39ff14;
-    color: red;
-    font-size: 40px;
-    transform: translate(40%) rotate(16deg);
-    animation-name: dumb-text;
-    animation-duration: 1s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
-    animation-direction: alternate-reverse;
-    backface-visibility: hidden;
-  }
-}
-@media (prefers-reduced-motion) {
-  .PageHome-section--butts .PageHome-sectionInner::before {
-    animation: none;
-  }
-}
-@keyframes dumb-text {
-  from {
-    transform: translate(40%) rotate(16deg) scale(1);
-  }
-  to {
-    transform: translate(40%) rotate(20deg) scale(1.2);
-  }
 }
 .PageHome-section--details {
   position: relative;
