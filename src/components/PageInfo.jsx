@@ -115,66 +115,70 @@ function PageInfo() {
     }
   }
   return (
-    <div className="PageInfo">
-      <div className="PageInfo-section">
-        <h2 className="PageInfo-sectionHeadline">wallet: </h2>
-        {web3State.connected ? (
-          <span className="SectionConnection-address">
-            <AnchorWalletAddress />
-          </span>
-        ) : (
-          <ButtonConnect />
-        )}
-      </div>
-      <div className="PageInfo-section">
-        <h2 className="PageInfo-sectionHeadline">contract: </h2>
-        {web3State.buttpunkContractAddress ? (
-          <AnchorAddress chainId={web3State.chainId} address={web3State.buttpunkContractAddress} />
-        ) : (
-          <span>[smart contract has not been deployed on this chain]</span>
-        )}
-      </div>
-      <div className="PageInfo-section">
-        <h2 className="PageInfo-sectionHeadline">contract owner: </h2>
-        {ownerAddress ? (
-          <AnchorAddress chainId={web3State.chainId} address={ownerAddress} />
-        ) : (
-          <span>[cannot retrieve contract owner]</span>
-        )}
-      </div>
-      <div className="PageInfo-section">
-        <h2 className="PageInfo-sectionHeadline">total revenue: </h2>
-        <p>
-          {totalRevenue / 1000000000000000000}
-          Ξ
-        </p>
-      </div>
-      {releaseRatio <= 0 ? '' : (
+    <div className="PageInfo RainbowBG">
+      <div className="PageInfo-inner">
         <div className="PageInfo-section">
-          <h2 className="PageInfo-sectionHeadline">
-            my total revenue (
-            {releaseRatio * 100}
-            %):
-            {' '}
-          </h2>
+          <h2 className="PageInfo-sectionHeadline">wallet: </h2>
+          {web3State.connected ? (
+            <span className="SectionConnection-address">
+              <AnchorWalletAddress />
+            </span>
+          ) : (
+            <ButtonConnect />
+          )}
+        </div>
+        <div className="PageInfo-section">
+          <h2 className="PageInfo-sectionHeadline">contract: </h2>
+          {web3State.buttpunkContractAddress ? (
+            <AnchorAddress
+              chainId={web3State.chainId}
+              address={web3State.buttpunkContractAddress}
+            />
+          ) : (
+            <span>[smart contract has not been deployed on this chain]</span>
+          )}
+        </div>
+        <div className="PageInfo-section">
+          <h2 className="PageInfo-sectionHeadline">contract owner: </h2>
+          {ownerAddress ? (
+            <AnchorAddress chainId={web3State.chainId} address={ownerAddress} />
+          ) : (
+            <span>[cannot retrieve contract owner]</span>
+          )}
+        </div>
+        <div className="PageInfo-section">
+          <h2 className="PageInfo-sectionHeadline">total revenue: </h2>
           <p>
-            {(totalRevenue / 1000000000000000000) * releaseRatio}
+            {totalRevenue / 1000000000000000000}
             Ξ
           </p>
         </div>
-      )}
-      {balanceAvailable <= 0 ? '' : (
-        <div className="PageInfo-section">
-          <h2 className="PageInfo-sectionHeadline">
-            my available revenue
-          </h2>
-          <p>
-            {balanceAvailable / 1000000000000000000}
-            Ξ
-          </p>
-          <br />
-          <button
-            className={
+        {releaseRatio <= 0 ? '' : (
+          <div className="PageInfo-section">
+            <h2 className="PageInfo-sectionHeadline">
+              my total revenue (
+              {releaseRatio * 100}
+              %):
+              {' '}
+            </h2>
+            <p>
+              {(totalRevenue / 1000000000000000000) * releaseRatio}
+              Ξ
+            </p>
+          </div>
+        )}
+        {balanceAvailable <= 0 ? '' : (
+          <div className="PageInfo-section">
+            <h2 className="PageInfo-sectionHeadline">
+              my available revenue
+            </h2>
+            <p>
+              {balanceAvailable / 1000000000000000000}
+              Ξ
+            </p>
+            <br />
+            <button
+              className={
               classnames(
                 'Button',
                 {
@@ -183,31 +187,31 @@ function PageInfo() {
                 },
               )
             }
-            type="button"
-            disabled={loadingWithdraw || !web3State.connected}
-            onClick={withdraw}
-          >
-            Withdraw
-          </button>
-        </div>
-      )}
-      {!isOwner ? '' : (
-        <div className="PageInfo-section">
-          <h2 className="PageInfo-sectionHeadline">status: </h2>
-          <p>
-            {(() => {
-              if (!web3State.buttpunkContractAddress) {
-                return 'n/a';
-              } if (!saleStatus) {
-                return 'paused';
-              }
-              return 'active';
-            })()}
-          </p>
-          <br />
-          {saleStatus ? (
-            <button
-              className={
+              type="button"
+              disabled={loadingWithdraw || !web3State.connected}
+              onClick={withdraw}
+            >
+              Withdraw
+            </button>
+          </div>
+        )}
+        {!isOwner ? '' : (
+          <div className="PageInfo-section">
+            <h2 className="PageInfo-sectionHeadline">status: </h2>
+            <p>
+              {(() => {
+                if (!web3State.buttpunkContractAddress) {
+                  return 'n/a';
+                } if (!saleStatus) {
+                  return 'paused';
+                }
+                return 'active';
+              })()}
+            </p>
+            <br />
+            {saleStatus ? (
+              <button
+                className={
                   classnames(
                     'Button',
                     {
@@ -216,15 +220,15 @@ function PageInfo() {
                     },
                   )
                 }
-              type="button"
-              disabled={!web3State.connected || loadingStatus}
-              onClick={pauseSale}
-            >
-              Pause Sale
-            </button>
-          ) : (
-            <button
-              className={
+                type="button"
+                disabled={!web3State.connected || loadingStatus}
+                onClick={pauseSale}
+              >
+                Pause Sale
+              </button>
+            ) : (
+              <button
+                className={
                   classnames(
                     'Button',
                     {
@@ -233,31 +237,34 @@ function PageInfo() {
                     },
                   )
                 }
-              type="button"
-              disabled={!web3State.connected || loadingStatus}
-              onClick={startSale}
-            >
-              Start Sale
-            </button>
-          )}
-        </div>
-      )}
-      <div className="PageInfo-section">
-        {error ? (
-          <p style={{ fontSize: '12px', color: 'red' }}>
-            {`Error${
-              error.code ? ` ${error.code}` : ''
-            }: ${error.message || error}`}
+                type="button"
+                disabled={!web3State.connected || loadingStatus}
+                onClick={startSale}
+              >
+                Start Sale
+              </button>
+            )}
+          </div>
+        )}
+        {error || success ? (
+          <div className="PageInfo-section">
+            {error ? (
+              <p style={{ fontSize: '12px', color: 'red' }}>
+                {`Error${
+                  error.code ? ` ${error.code}` : ''
+                }: ${error.message || error}`}
 
-          </p>
-        ) : (
-          ''
-        )}
-        {success ? (
-          <p style={{ fontSize: '12px', color: 'green' }}>{success}</p>
-        ) : (
-          ''
-        )}
+              </p>
+            ) : (
+              ''
+            )}
+            {success ? (
+              <p style={{ fontSize: '12px', color: 'green' }}>{success}</p>
+            ) : (
+              ''
+            )}
+          </div>
+        ) : ''}
       </div>
     </div>
   );

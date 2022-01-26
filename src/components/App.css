@@ -8,7 +8,23 @@
   justify-content: space-between;
   overflow: hidden;
 }
-.App::before {
+.App-inner,
+.App-main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.App-header,
+.App-footer,
+.App-main {
+  position: relative;
+}
+
+.ButtBG {
+  position: relative;
+  overflow: hidden;
+}
+.ButtBG::before {
   content: "";
   display: block;
   position: absolute;
@@ -28,7 +44,7 @@
   backface-visibility: hidden;
 }
 @media (prefers-reduced-motion) {
-  .App::before {
+  .ButtBG::before {
     animation: none;
   }
 }
@@ -42,17 +58,6 @@
     background-position: -100vh 0;
   }
 }
-.App-inner,
-.App-main {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-.App-header,
-.App-footer,
-.App-main {
-  position: relative;
-}
 
 .RainbowBG {
   position: relative;
@@ -63,7 +68,7 @@
   display: block;
   position: absolute;
   top: 0;
-  right: -100%;
+  right: -300%;
   bottom: 0;
   left: 0%;
   background: linear-gradient(
