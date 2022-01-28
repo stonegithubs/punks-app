@@ -153,6 +153,9 @@
   background-color: #6f1cc2;
   color: #fff;
 }
+.PageHome-section--details .PageHome-headline {
+  margin-bottom: 0.5em;
+}
 .PageHome-section--details .PageHome-sectionMain {
   display: flex;
   flex-direction: column;
