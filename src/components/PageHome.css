@@ -70,7 +70,7 @@
   content: "SO COOL!";
   right: 0%;
   top: 0%;
-  font-size: 40px;
+  font-size: 24px;
   transform: translate(40%) rotate(16deg);
   animation-name: dumb-text-1;
   animation-duration: 1.324s;
@@ -79,7 +79,7 @@
   content: "WOW!";
   left: 0%;
   bottom: 20%;
-  font-size: 80px;
+  font-size: 48px;
   transform: translate(-40%) rotate(-16deg);
   animation-name: dumb-text-2;
   animation-duration: 1s;
