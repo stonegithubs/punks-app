@@ -26,11 +26,35 @@ code {
   border: transparent;
   font-weight: 700;
   color: #000;
-  text-decoration: none;
+  /* text-decoration: none; */
 }
 .AnchorText:focus,
 .AnchorText:hover {
   text-decoration: underline;
+}
+
+.TextIcon::before {
+  content: "";
+  display: inline-block;
+  background-size: contain;
+  background-position: center;
+  aspect-ratio: 1;
+  width: 1em;
+  margin: -0.2em 0.2em 0;
+  vertical-align: middle;
+}
+.TextIcon--discord::before {
+  background-image: url("http://www.google.com/s2/favicons?domain=https://discord.com");
+  margin: -0.3em 0.3em 0;
+}
+.TextIcon--twitter::before {
+  background-image: url("http://www.google.com/s2/favicons?domain=https://twitter.com");
+}
+.TextIcon--opensea::before {
+  background-image: url("http://www.google.com/s2/favicons?domain=https://opensea.io");
+}
+.TextIcon--pinata::before {
+  background-image: url("http://www.google.com/s2/favicons?domain=https://www.pinata.cloud/");
 }
 
 /* Button */

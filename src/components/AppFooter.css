@@ -3,10 +3,17 @@
   background-color: #fff;
   padding: 3em 1em 2em;
 }
-.AppFooter p {
+.AppFooterSection {
   font-size: 14px;
   margin-bottom: 0.667em;
 }
-.AppFooter p:last-child {
+.AppFooterSection:last-child {
   margin-bottom: 0;
+}
+.AppFooterSection--contact {
+  display: flex;
+  justify-content: center;
+}
+.AppFooterContactLink {
+  margin: 0 1em;
 }

@@ -47,14 +47,14 @@ function PageHome() {
               <AnchorAddress chainId={1} address={BUTTPUNK_CONTRACT_MAP[1]} />
               . There&apos;s more information on that over on
               {' '}
-              <a href="https://docs.pinata.cloud/nfts" target="_blank" rel="noreferrer">the Pinata website</a>
+              <a className="TextIcon TextIcon--pinata" href="https://docs.pinata.cloud/nfts" target="_blank" rel="noreferrer">the Pinata website</a>
               {' '}
               but the tldr is that it&apos;s impossible for us to change the contents!
             </p>
             <p className="PageHome-blurb">
               Ready to dive in? Mint a few butts below and/or trade them on
               {' '}
-              <a href="https://testnets.opensea.io/collection/buttpunks" target="_blank" rel="noreferrer">OpenSea</a>
+              <a className="TextIcon TextIcon--opensea" href="https://testnets.opensea.io/collection/buttpunks" target="_blank" rel="noreferrer">OpenSea</a>
               !
             </p>
           </div>
