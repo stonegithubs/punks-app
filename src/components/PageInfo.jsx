@@ -33,7 +33,7 @@ function PageInfo() {
     }
     (async () => {
       try {
-        const newSaleStatus = await web3State.buttpunkContract.methods.getSaleStatus().call();
+        const newSaleStatus = await web3State.buttpunkContract.methods.saleStatus().call();
         const newOwnerAddress = await web3State.buttpunkContract.methods.owner().call();
         const totalShares = await web3State.buttpunkContract.methods.totalShares().call();
         const shares = await web3State.buttpunkContract.methods.shares(web3State.address).call();
