@@ -44,7 +44,7 @@ function SectionMint() {
 
     (async () => {
       try {
-        const data = await web3State.buttpunkContract.methods.getSaleStatus().call();
+        const data = await web3State.buttpunkContract.methods.saleStatus().call();
         setSaleStatus(data);
       } catch (err) {
         console.error(err);
