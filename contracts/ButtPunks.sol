@@ -13,14 +13,14 @@ contract ButtPunks is ERC721, Ownable, PaymentSplitter {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
 
-    uint16 public constant MAX_SUPPLY = 10000;
-    uint8 public constant MAX_PURCHASE = 20;
+    uint256 public constant MAX_SUPPLY = 10000;
+    uint256 public constant MAX_PURCHASE = 20;
     uint256 public constant TOKEN_PRICE = 0.0001 ether;
     address[] private constant ADDRESS_LIST = [
         0xD1aDe89F8826d122F0a3Ab953Bc293E144042539,
         0x4a4F584cA801192D459aFDF93BE3aE2C627FF8a2
     ];
-    uint8[] private constant SHARE_LIST = [50, 50];
+    uint256[] private constant SHARE_LIST = [50, 50];
 
     bool public saleIsActive = false;
 
@@ -58,9 +58,9 @@ contract ButtPunks is ERC721, Ownable, PaymentSplitter {
             "Ether value sent is not correct"
         );
 
-        for (uint8 i = 0; i < numberOfTokens; i++) {
+        for (uint256 i = 0; i < numberOfTokens; i++) {
             _tokenIds.increment();
-            uint16 newItemId = _tokenIds.current();
+            uint256 newItemId = _tokenIds.current();
             if (newItemId < MAX_SUPPLY) {
                 _safeMint(msg.sender, newItemId);
             }
