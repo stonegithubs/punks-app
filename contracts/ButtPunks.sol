@@ -17,7 +17,7 @@ contract ButtPunks is ERC721, Ownable, PaymentSplitter {
     ];
     uint8[] private constant SHARE_LIST = [50, 50];
     uint16 public constant MAX_SUPPLY = 10000;
-    uint16 public constant MAX_PURCHASE = 20;
+    uint8 public constant MAX_PURCHASE = 20;
 
     bool public saleIsActive = false;
 
