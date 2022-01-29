@@ -2,23 +2,29 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+import "hardhat/console.sol";
+
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
+import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/finance/PaymentSplitter.sol";
 
-contract ButtPunks is ERC721Enumerable, Ownable, PaymentSplitter {
+contract ButtPunks is ERC721, Ownable, PaymentSplitter {
+    using Strings for uint256;
     using SafeMath for uint256;
-    
+    using Counters for Counters.Counter;
+    Counters.Counter private _tokenIds;
+
+    uint128 public constant MAX_SUPPLY = 10000;
+    uint128 public constant MAX_PURCHASE = 20;
     uint256 public constant TOKEN_PRICE = 0.0001 ether;
     address[] private ADDRESS_LIST = [
         0xD1aDe89F8826d122F0a3Ab953Bc293E144042539,
         0x4a4F584cA801192D459aFDF93BE3aE2C627FF8a2
     ];
     uint256[] private SHARE_LIST = [50, 50];
-    uint16 public constant MAX_SUPPLY = 10000;
-    uint8 public constant MAX_PURCHASE = 20;
 
     bool public saleStatus = false;
 
@@ -37,28 +43,31 @@ contract ButtPunks is ERC721Enumerable, Ownable, PaymentSplitter {
         saleStatus = newSaleStatus;
     }
 
+    function totalSupply() {
+        return _tokenIds.current();
+    }
+
     function mintToken(uint256 numberOfTokens) public payable {
-        uint256 curTotal = totalSupply();
-        uint256 newTotal = curTotal.add(numberOfTokens);
-        
         require(saleIsActive, "Sale must be active to mint a token");
         require(
             numberOfTokens <= MAX_PURCHASE,
             "Each wallet can only mint 20 tokens at a time"
         );
         require(
-            newTotal <= MAX_SUPPLY,
+            _tokenIds.current().add(numberOfTokens) <= MAX_SUPPLY,
             "Purchase would exceed max supply of tokens"
         );
         require(
             TOKEN_PRICE.mul(numberOfTokens) <= msg.value,
-            "Ether value sent is lower than expected"
+            "Ether value sent is too low"
         );
 
-        uint256 newTokenId = curTotal;
-        while (newTokenId < newTotal) {
-            _safeMint(msg.sender, newTokenId);
-            newTokenId = newTokenId.add(1);
+        for (uint256 i = 0; i < numberOfTokens; i++) {
+            _tokenIds.increment();
+            uint256 newItemId = _tokenIds.current();
+            if (newItemId < MAX_SUPPLY) {
+                _safeMint(msg.sender, newItemId);
+            }
         }
     }
 }
