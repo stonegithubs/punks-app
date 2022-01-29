@@ -20,7 +20,7 @@ contract ButtPunks is ERC721Enumerable, Ownable, PaymentSplitter {
     uint16 public constant MAX_SUPPLY = 10000;
     uint8 public constant MAX_PURCHASE = 20;
 
-    bool public saleIsActive = false;
+    bool public saleStatus = false;
 
     constructor()
         ERC721("ButtPunks", "BUTTS")
@@ -33,12 +33,8 @@ contract ButtPunks is ERC721Enumerable, Ownable, PaymentSplitter {
         return "ipfs://QmU9YSQCjvHmezoNgHrPGYY39bR1qar3wshyA2NMTregfw/";
     }
 
-    function setSaleStatus(bool saleStatus) public onlyOwner {
-        saleIsActive = saleStatus;
-    }
-
-    function getSaleStatus() public view returns (bool) {
-        return saleIsActive;
+    function setSaleStatus(bool newSaleStatus) public onlyOwner {
+        saleStatus = newSaleStatus;
     }
 
     function mintToken(uint256 numberOfTokens) public payable {
