@@ -43,7 +43,7 @@ contract ButtPunks is ERC721, Ownable, PaymentSplitter {
         return saleIsActive;
     }
 
-    function mintToken(uint8 numberOfTokens) public payable {
+    function mintToken(uint256 numberOfTokens) public payable {
         require(saleIsActive, "Sale must be active to mint a token");
         require(
             numberOfTokens <= MAX_PURCHASE,
