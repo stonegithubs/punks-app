@@ -64,10 +64,7 @@ contract ButtPunks is ERC721, Ownable, PaymentSplitter {
 
         for (uint256 i = 0; i < numberOfTokens; i++) {
             _tokenIds.increment();
-            uint256 newItemId = _tokenIds.current();
-            if (newItemId < MAX_SUPPLY) {
-                _safeMint(msg.sender, newItemId);
-            }
+            _safeMint(msg.sender, _tokenIds.current());
         }
     }
 }
