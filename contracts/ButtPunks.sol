@@ -59,7 +59,7 @@ contract ButtPunks is ERC721Enumerable, Ownable, PaymentSplitter {
             "Ether value sent is lower than expected"
         );
 
-        uint256 newTokenId = newTotal;
+        uint256 newTokenId = curTotal;
         while (newTokenId < newTotal) {
             _safeMint(msg.sender, newTokenId);
             newTokenId = newTokenId.add(1);
