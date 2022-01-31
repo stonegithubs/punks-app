@@ -8,11 +8,16 @@ function PageGallery() {
       <div className="PageGallery-inner">
         <div
           style={{
-            display: 'flex', flexDirection: 'row', flexWrap: 'wrap', width: '100%',
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            flexWrap: 'wrap',
+            width: '100%',
           }}
         >
-          {Array.from(Array(1000)).map((val, id) => (
-            <img style={{ display: 'block', margin: '4px' }} src={`https://d207ap6gpsm7q4.cloudfront.net/images/${id}.png`} alt={`butt #${id}`} />
+          {Array.from(Array(100)).map((val, id) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <img key={id} style={{ display: 'block', margin: '4px' }} src={`https://d207ap6gpsm7q4.cloudfront.net/images/${id}.png`} alt={`butt #${id}`} />
           ))}
         </div>
       </div>
