@@ -2,20 +2,13 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "hardhat/console.sol";
-
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
+import "erc721a/contracts/ERC721A.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/finance/PaymentSplitter.sol";
 
-contract ButtPunks is ERC721, Ownable, PaymentSplitter {
-    using Strings for uint256;
+contract ButtPunks is ERC721A, Ownable, PaymentSplitter {
     using SafeMath for uint256;
-    using Counters for Counters.Counter;
-    Counters.Counter private _tokenIds;
 
     uint128 public constant MAX_SUPPLY = 10000;
     uint128 public constant MAX_PURCHASE = 20;
@@ -29,42 +22,50 @@ contract ButtPunks is ERC721, Ownable, PaymentSplitter {
     bool public saleStatus = false;
 
     constructor()
-        ERC721("ButtPunks", "BUTTS")
+        ERC721A("ButtPunks", "BUTTS")
         PaymentSplitter(ADDRESS_LIST, SHARE_LIST)
     {
         setSaleStatus(true);
     }
 
-    function _baseURI() internal pure override returns (string memory) {
-        return "ipfs://QmU9YSQCjvHmezoNgHrPGYY39bR1qar3wshyA2NMTregfw/";
+    modifier callerIsUser() {
+        require(tx.origin == msg.sender, "The caller is another contract");
+        _;
     }
 
-    function setSaleStatus(bool newSaleStatus) public onlyOwner {
-        saleStatus = newSaleStatus;
-    }
-
-    function totalSupply() public view virtual returns (uint256) {
-        return _tokenIds.current();
-    }
-
-    function mintToken(uint256 numberOfTokens) public payable {
-        require(saleIsActive, "Sale must be active to mint a token");
+    function mintToken(uint256 numberOfTokens) public payable callerIsUser {
+        require(saleStatus, "Sale must be active to mint a token");
         require(
             numberOfTokens <= MAX_PURCHASE,
             "Each wallet can only mint 20 tokens at a time"
         );
+        uint256 targetTotalSupply = totalSupply().add(numberOfTokens);
         require(
-            _tokenIds.current().add(numberOfTokens) <= MAX_SUPPLY,
+            targetTotalSupply <= MAX_SUPPLY,
             "Purchase would exceed max supply of tokens"
         );
-        require(
-            TOKEN_PRICE.mul(numberOfTokens) <= msg.value,
-            "Ether value sent is too low"
-        );
+        uint256 totalCost = TOKEN_PRICE.mul(numberOfTokens);
+        require(totalCost <= msg.value, "Ether value sent is too low");
 
-        for (uint256 i = 0; i < numberOfTokens; i++) {
-            _tokenIds.increment();
-            _safeMint(msg.sender, _tokenIds.current());
+        _safeMint(msg.sender, numberOfTokens);
+
+        if (msg.value > totalCost) {
+            payable(msg.sender).transfer(msg.value - totalCost);
         }
+    }
+
+    string private _baseTokenURI =
+        "ipfs://QmU9YSQCjvHmezoNgHrPGYY39bR1qar3wshyA2NMTregfw/";
+
+    function _baseURI() internal view virtual override returns (string memory) {
+        return _baseTokenURI;
+    }
+
+    function setBaseURI(string calldata baseURI) external onlyOwner {
+        _baseTokenURI = baseURI;
+    }
+
+    function setSaleStatus(bool newSaleStatus) public onlyOwner {
+        saleStatus = newSaleStatus;
     }
 }

@@ -31,6 +31,7 @@
   },
   "devDependencies": {
     "@openzeppelin/contracts": "^4.4.1",
+    "erc721a": "^2.0.0",
     "eslint": "^8.6.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-plugin-import": "^2.25.4",
