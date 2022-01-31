@@ -26,7 +26,7 @@ function PageProvenance() {
           <p>
             Final Proof Hash:
             {' '}
-            sadfasdfdasbdfbfdgfdgdfsgdfsgdfadsfasdfsdaf
+            [TBD]
           </p>
           <h2 className="PageProvenance-headline">Provenance Record</h2>
           <table>
@@ -34,6 +34,7 @@ function PageProvenance() {
               <tr>
                 <th>tokenId</th>
                 <th>sha256</th>
+                <th>arweaveId</th>
               </tr>
             </thead>
             <tbody>
@@ -41,6 +42,7 @@ function PageProvenance() {
                 <tr>
                   <td>{shaKey}</td>
                   <td>{shas[shaKey]}</td>
+                  <td>TBD</td>
                 </tr>
               ))}
             </tbody>
