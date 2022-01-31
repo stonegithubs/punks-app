@@ -42,7 +42,7 @@ function PageProvenance() {
       <div className="PageProvenance-inner">
         <div className="PageProvenance-section">
           <h1 className="PageProvenance-headline">BUTTPUNK PROVENANCE RECORD</h1>
-          <p className="PageProvenance-blurb">This page presents the provenance record of each token that will ever exist. Each token image is firstly hashed using SHA-256 algorithm. A combined string is obtained by concatenating SHA-256 of each token image in the specific order as listed below. The final proof is obtained by SHA-256 hashing this combined string. This is the final provenance record stored on the smart contract.</p>
+          <p className="PageProvenance-blurb">This page presents the provenance record of each token that will ever exist. Each token image is firstly hashed using SHA-256 algorithm. A combined string is obtained by concatenating the SHA-256 hash of each image in the specific order as listed below. The final proof is obtained by SHA-256 hashing this combined string. This is the final provenance record stored on the smart contract.</p>
         </div>
         <div className="PageProvenance-section">
           <h2 className="PageProvenance-headline">Important Info</h2>
