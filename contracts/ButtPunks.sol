@@ -19,13 +19,14 @@ contract ButtPunks is ERC721A, Ownable, PaymentSplitter {
     ];
     uint256[] private SHARE_LIST = [50, 50];
 
-    bool public saleStatus = false;
+    bool public saleStatus = true;
+    string private _baseTokenURI;
 
-    constructor()
+    constructor(string memory baseURI)
         ERC721A("ButtPunks", "BUTTS")
         PaymentSplitter(ADDRESS_LIST, SHARE_LIST)
     {
-        setSaleStatus(true);
+        _baseTokenURI = baseURI;
     }
 
     modifier callerIsUser() {
@@ -54,9 +55,6 @@ contract ButtPunks is ERC721A, Ownable, PaymentSplitter {
         }
     }
 
-    string private _baseTokenURI =
-        "ipfs://QmU9YSQCjvHmezoNgHrPGYY39bR1qar3wshyA2NMTregfw/";
-
     function _baseURI() internal view virtual override returns (string memory) {
         return _baseTokenURI;
     }
@@ -65,7 +63,7 @@ contract ButtPunks is ERC721A, Ownable, PaymentSplitter {
         _baseTokenURI = baseURI;
     }
 
-    function setSaleStatus(bool newSaleStatus) public onlyOwner {
+    function setSaleStatus(bool newSaleStatus) external onlyOwner {
         saleStatus = newSaleStatus;
     }
 }
