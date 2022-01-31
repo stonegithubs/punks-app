@@ -4,13 +4,39 @@ import { BUTTPUNK_CONTRACT_MAP } from '../service/web3';
 
 import './PageProvenance.css';
 
+async function sha256(message) {
+  // encode as UTF-8
+  const msgBuffer = new TextEncoder().encode(message);
+
+  // hash the message
+  const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+
+  // convert ArrayBuffer to Array
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+
+  // convert bytes to hex string
+  const hashHex = hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
+  return hashHex;
+}
+
 function PageProvenance() {
-  const [shas, setShas] = useState([]);
+  const [shas, setShas] = useState({});
+  const [provenance, setProvenance] = useState('');
+  // const [combinedShas, setCombinedShas] = useState('');
   useEffect(() => {
     fetch('https://d207ap6gpsm7q4.cloudfront.net/metadata/_sha256s.json')
       .then((response) => response.json())
       .then((data) => setShas(data));
   }, []);
+  useEffect(() => {
+    (async () => {
+      const shaVals = Object.values(shas);
+      if (!shaVals.length) return;
+      const shasString = shaVals.join();
+      setProvenance(await sha256(shasString));
+      // setCombinedShas(shasString);
+    })();
+  }, [shas]);
   return (
     <div className="PageProvenance">
       <div className="PageProvenance-inner">
@@ -26,7 +52,7 @@ function PageProvenance() {
           <p>
             Final Proof Hash:
             {' '}
-            [TBD]
+            {provenance}
           </p>
           <h2 className="PageProvenance-headline">Provenance Record</h2>
           <table>
@@ -39,7 +65,7 @@ function PageProvenance() {
             </thead>
             <tbody>
               {Object.keys(shas).map((shaKey) => (
-                <tr>
+                <tr key={shaKey}>
                   <td>{shaKey}</td>
                   <td>{shas[shaKey]}</td>
                   <td>TBD</td>
