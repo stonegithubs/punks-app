@@ -59,9 +59,11 @@ function PageProvenance() {
         </div>
         <div className="PageProvenance-section">
           <h2 className="PageProvenance-headline">Concatenated Hash String</h2>
-          <code className="PageProvenance-blurb">
-            {combinedShas}
-          </code>
+          <div className="PageProvenance-codeBlockWrapper PageProvenance-blurb">
+            <code className="PageProvenance-codeBlock">
+              {combinedShas}
+            </code>
+          </div>
         </div>
         <div className="PageProvenance-section">
           <h2 className="PageProvenance-headline">Provenance Record</h2>

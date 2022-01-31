@@ -21,6 +21,16 @@
 .PageProvenance-blurb {
   margin-bottom: 1em;
 }
+.PageProvenance-codeBlockWrapper {
+  overflow-y: scroll;
+  height: 8em;
+  border: 1px solid #aaa;
+  padding: 0.5em 1em;
+  overflow-x: hidden;
+}
+.PageProvenance-codeBlock {
+  word-wrap: break-word;
+}
 .PageProvenance-section:last-child,
 .PageProvenance-blurb:last-child {
   margin-bottom: 0;
