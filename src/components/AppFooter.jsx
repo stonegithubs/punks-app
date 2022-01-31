@@ -8,25 +8,25 @@ function AppFooter({ className }) {
   return (
     <footer className={classnames('AppFooter', className)}>
       <p className="AppFooterSection AppFooterSection--contact">
-        <div className="AppFooterContactLink">
+        <span className="AppFooterContactLink">
           ButtPunks is a
           {' '}
           <a href="https://discord.gg/XcYPjZ3TH9" className="AnchorText TextIcon TextIcon--discord">Hella Sick Tight</a>
           {' '}
           collab
-        </div>
+        </span>
       </p>
       <p className="AppFooterSection AppFooterSection--contact">
-        <div className="AppFooterContactLink">
+        <span className="AppFooterContactLink">
           Art by
           {' '}
           <a href="https://twitter.com/patricklawler" className="AnchorText TextIcon TextIcon--twitter">Patrick Lawler</a>
-        </div>
-        <div className="AppFooterContactLink">
+        </span>
+        <span className="AppFooterContactLink">
           Code by
           {' '}
           <a href="https://twitter.com/peebun" className="AnchorText TextIcon TextIcon--twitter">Dustin Boersma</a>
-        </div>
+        </span>
       </p>
       <p className="AppFooterSection AppFooterSection--terms">
         <Link className="AnchorText" to="/terms">Terms & Conditions</Link>
