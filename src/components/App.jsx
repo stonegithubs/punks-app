@@ -5,7 +5,9 @@ import AppHeader from './AppHeader';
 import AppFooter from './AppFooter';
 import PageHome from './PageHome';
 import PageInfo from './PageInfo';
+import PageGallery from './PageGallery';
 import PageTerms from './PageTerms';
+import PageProvenance from './PageProvenance';
 
 function App() {
   return (
@@ -24,6 +26,16 @@ function App() {
                 exact
                 path="/info"
                 element={<PageInfo />}
+              />
+              <Route
+                exact
+                path="/gallery"
+                element={<PageGallery />}
+              />
+              <Route
+                exact
+                path="/provenance"
+                element={<PageProvenance />}
               />
               <Route
                 exact

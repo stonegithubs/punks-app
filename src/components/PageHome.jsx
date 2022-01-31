@@ -1,10 +1,9 @@
 import './PageHome.css';
 import React from 'react';
-import AnchorAddress from './AnchorAddress';
+import { Link } from 'react-router-dom';
 import SectionMint from './SectionMint';
 import ButtPreviewImgSrc from '../media/butt-preview.gif';
 import PreviewVideoSrc from '../media/preview.mp4';
-import { BUTTPUNK_CONTRACT_MAP } from '../service/web3';
 
 function PageHome() {
   return (
@@ -40,19 +39,15 @@ function PageHome() {
               nine traits from a collection of over 100 assets!
             </p>
             <p className="PageHome-blurb">
-              Each butt and its metadata is stored on IPFS via Pinata
-              and you can assure there is no funny business since the directory CID
-              is stored right there in the smart contract:
+              Each butt and its metadata is built to last.
+              Check out
               {' '}
-              <AnchorAddress chainId={1} address={BUTTPUNK_CONTRACT_MAP[1]} />
-              . There&apos;s more information on that over on
+              <Link to="/provenance">the provenance page</Link>
               {' '}
-              <a className="TextIcon TextIcon--pinata" href="https://docs.pinata.cloud/nfts" target="_blank" rel="noreferrer">the Pinata website</a>
-              {' '}
-              but the tldr is that it&apos;s impossible for us to change the contents!
+              for more info.
             </p>
             <p className="PageHome-blurb">
-              Ready to dive in? Mint a few butts below and/or trade them on
+              Ready to dive in? Mint a few butts above and/or trade them on
               {' '}
               <a className="TextIcon TextIcon--opensea" href="https://testnets.opensea.io/collection/buttpunks" target="_blank" rel="noreferrer">OpenSea</a>
               !
