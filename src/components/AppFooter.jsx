@@ -25,7 +25,7 @@ function AppFooter({ className }) {
         <div className="AppFooterContactLink">
           Code by
           {' '}
-          <a href="https://twitter.com/itsdustn" className="AnchorText TextIcon TextIcon--twitter">Dustin Boersma</a>
+          <a href="https://twitter.com/peebun" className="AnchorText TextIcon TextIcon--twitter">Dustin Boersma</a>
         </div>
       </p>
       <p className="AppFooterSection AppFooterSection--terms">
