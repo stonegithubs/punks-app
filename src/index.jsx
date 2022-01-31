@@ -17,7 +17,13 @@ ReactDOM.render(
     <CookieConsent
       buttonText="Accept"
       style={{ backgroundColor: '#000' }}
-      buttonStyle={{ backgroundColor: '#ff1493' }}
+      buttonStyle={{
+        backgroundColor: '#ff1493',
+        color: '#fff',
+        fontWeight: '700',
+        textTransform: 'uppercase',
+        letterSpacing: '0.05em',
+      }}
       onAccept={() => {
         ReactGA.initialize('G-S3TT2WKBV5');
       }}
