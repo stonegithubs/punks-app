@@ -39,12 +39,12 @@ function PageHome() {
               nine traits from a collection of over 100 assets!
             </p>
             <p className="PageHome-blurb">
-              Each butt and its metadata is built to last.
+              All butt images and metadata are built to last.
               Check out
               {' '}
               <Link to="/provenance">the provenance page</Link>
               {' '}
-              for more info.
+              for more info on how we strive to make them outlive you.
             </p>
             <p className="PageHome-blurb">
               Ready to dive in? Mint a few butts above and/or trade them on
