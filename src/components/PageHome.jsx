@@ -25,7 +25,7 @@ function PageHome() {
         <div className="PageHome-sectionInner">
           <a
             className="PageHome-sectionImg PageHome-sectionImg--preview"
-            href="https://opensea.io/collection/buttpunks"
+            href="https://opensea.io/collection/butt-punks"
             target="_blank"
             rel="noreferrer"
           >
@@ -49,7 +49,7 @@ function PageHome() {
             <p className="PageHome-blurb">
               Ready to dive in? Mint a few butts above and/or trade them on
               {' '}
-              <a className="TextIcon TextIcon--opensea" href="https://opensea.io/collection/buttpunks" target="_blank" rel="noreferrer">OpenSea</a>
+              <a className="TextIcon TextIcon--opensea" href="https://opensea.io/collection/butt-punks" target="_blank" rel="noreferrer">OpenSea</a>
               !
             </p>
           </div>
