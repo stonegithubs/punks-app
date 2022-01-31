@@ -16,6 +16,7 @@
 }
 .PageProvenance-headline {
   margin-bottom: 1em;
+  text-transform: uppercase;
 }
 .PageProvenance-blurb {
   margin-bottom: 1em;
@@ -23,4 +24,7 @@
 .PageProvenance-section:last-child,
 .PageProvenance-blurb:last-child {
   margin-bottom: 0;
+}
+.PageProvenance-table {
+  width: 100%;
 }
